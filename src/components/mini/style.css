@@ -1,0 +1,237 @@
+/* .grid_3 {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr;
+    grid-gap: 5px;
+} */
+
+.contact_bg {
+    background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('../../assets/images/homepage/contact-img.jpg');
+    height: 20rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.contact_bg h1 {
+    color: #fff;
+}
+
+.img_display {
+    height: calc(24rem + 5px);
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.img_display .img_block, .image_block_showcase .img_block {
+    position: relative;
+}
+
+.img_display .img_block img {
+    position: relative;
+    object-position: bottom;
+    object-fit: cover;
+}
+
+.mini .image_overlay {
+    position: absolute;
+    top: 0%;
+    background: rgba(0, 0, 0, .2);
+    height: 100%;
+    width: 100%;
+}
+
+.alt_img_cover img {
+    height: 12rem;
+    object-fit: cover;
+    object-position: center;
+}
+
+.alt_img_cover img:first-child {
+    margin-bottom: 5px;
+}
+
+.faq_container img {
+    height: 25rem;
+    width: 100%;
+    object-position: top;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border-radius: 2px;
+}
+
+.portofilio_grid_2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 10px;
+    overflow: hidden;
+    height: calc(24rem + 5px);
+}
+
+.portofilio_grid_2 div img {
+    height: 12rem;
+    margin-bottom: 5px;
+}
+
+.portofilio_grid_2 div img:last-child {
+    margin-bottom: 0px;
+}
+
+.image_block_showcase img {
+    height: 15rem;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* img.showcase_grid_main {
+    height: 20rem;
+} */
+
+img.showcase_grid_sec_alt {
+    width: 70%;
+    height: 15rem;
+}
+
+img.showcase_grid_sec_main {
+    width: 100%;
+    height: 15rem;
+}
+
+.product_showcase {
+    width: 100%;
+    height: 30rem;
+    overflow: hidden;
+}
+
+.to_right {
+    float: right;
+}
+
+.row.md_7.p_2 {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    grid-gap: 2%;
+}
+
+.row.md_3.p_2 {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-gap: 2%;
+}
+
+.mini_header {
+    height: 450px;
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../../assets/images/content/header.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.portfolio_products_grid {
+    display: flex;
+    grid-gap: 10px;
+}
+
+.portfolio_products_grid img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+/* .portfolio_products {
+    margin-left: 60px;
+} */
+
+.portfolio_products h4.furniture_name {
+    font-size: .9rem;
+    margin-bottom: 0px;
+    color: #383633;
+}
+
+.portfolio_products p.furniture_amount {
+    color: #767472;
+    font-size: .8rem;
+}
+
+.grid_bias_2 {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: center;
+    margin-bottom: 30px;
+    grid-gap: 20px;
+}
+
+.grid_bias_2 img {
+    width: 100%;
+    height: 100%;
+}
+
+.grid_bias_2 p {
+    width: 90%;
+}
+
+.grid_bias_2 .grid_products_array img {
+    height: 10rem;
+    width: 100%;
+}
+
+.grid_bias_2 {
+    height: calc(20rem + 20px);
+    overflow: hidden;
+}
+
+.grid_bias_2 .grid_products_array {
+    /* height: 10rem;
+    width: 100%;
+    display: grid; */
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+h2.project_company {
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+h2.project_company span {
+    font-size: .9rem;
+}
+
+.contact .ion-icon {
+    color: #383633;
+    font-size: 2rem;
+}
+
+.contact .grid_2 {
+    grid-gap: 50px;
+}
+
+.contact p {
+    line-height: 1.7;
+}
+
+.contact h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.contact h5 {
+    font-size: 1.2rem;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+.contact a {
+    color: #383633;
+    margin-left: 5px;
+}
+
+.contact_info {
+    margin-bottom: 10px;
+}

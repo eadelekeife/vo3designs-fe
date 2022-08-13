@@ -1,0 +1,153 @@
+.header {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../../assets/images/homepage/hero.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header div h3 {
+    color: #fff;
+    font-size: 2.5rem;
+    /* width: 60%; */
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.header div p {
+    color: #fff;
+    font-size: 1.4rem;
+    width: 60%;
+    margin: 0px auto;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 600;
+}
+
+.header div button {
+    background: #fff;
+    border-radius: 4px;
+    color: #000;
+    border: 1px solid #fff;
+    padding: 8px 25px;
+}
+
+.sec_banner {
+    background: url('../../assets/images/content/sec_banner.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+}
+
+.header_product_list .grid_3 {
+    grid-gap: 20px;
+}
+
+.main_top .grid_4 {
+    grid-gap: 20px;
+}
+
+.main_top .grid_4 img {
+    border-radius: 4px;
+}
+
+.video_banner {
+    display: block;
+    height: 30rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.video_banner .video_cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0%;
+    right: 0px;
+    bottom: 0px;
+}
+
+.video {
+    width: 100%;
+    /* height: 20rem; */
+    position: absolute;
+    left: 0px;
+    top: 0%;
+    right: 0px;
+    bottom: 0px;
+}
+
+.vo3_props {
+    background: #F7EEE3;
+    padding: 4% 0;
+}
+
+.vo3_props .grid_3 {
+    grid-gap: 20px;
+}
+
+.vo3_props .grid_3 .grid_2 {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+/* .vo3_props .grid_3 .grid_2 img {
+    height: 10rem;
+    width: auto;
+} */
+
+.testimonials {
+    background: #F7EEE3;
+    /* background: #154C9A; */
+}
+
+.testimonials .testimonial_image_div {
+    height: 25rem;
+    overflow: hidden;
+    /* width: 100%;
+    object-fit: cover;
+    object-position: center; */
+}
+
+.testimonials .testimonial_image_div div {
+    height: inherit;
+    width: inherit;
+    /* width: 100%;
+    object-fit: cover;
+    object-position: center; */
+}
+
+.testimonials .grid_2 {
+    align-items: center;
+    padding-left: 60px;
+}
+
+.testimonials .grid_text_cover h4 {
+    font-size: 2rem;
+    width: 70%;
+}
+
+.testimonials .grid_text_cover h4::before {
+    content: "“ ";
+}
+
+.testimonials .grid_text_cover h4::after {
+    content: " ”";
+}
+
+.testimonial_footer {
+    display: block;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 17px;
+    background: linear-gradient(-30deg, rgb(245, 248, 248) 56px, transparent 0px) 0% 0% / 65px 64px repeat-x, linear-gradient(30deg, rgb(245, 248, 248) 56px, rgb(21, 76, 154) 10px);
+    background-repeat: repeat-x;
+    /* background: linear-gradient(-10deg, rgb(245, 248, 248) 56px, transparent 0px) 0% 0% / 55px 54px repeat-x, linear-gradient(30deg, rgb(245, 248, 248) 56px, rgb(21, 76, 154) 0px); */
+}

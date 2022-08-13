@@ -1,0 +1,46 @@
+.auth_display {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth_box {
+    max-width: 65%;
+    margin: 0% auto;
+    box-shadow: 0px 0px 3px rgba(0,0,0,.4);
+    padding: 15px 15px;
+    border-radius: 4px;
+}
+
+.auth_box label {
+    font-size: .9rem;
+}
+
+.auth_box button {
+    margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: .9rem;
+}
+
+.auth_box h1 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+    margin-bottom: 0px;
+}
+
+.auth_box p {
+    margin-bottom: 15px;
+    font-size: .9rem;
+}
+
+.auth_box .auth_links p {
+    margin-bottom: 5px;
+}
+
+/* .auth_links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} */

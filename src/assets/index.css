@@ -1,0 +1,274 @@
+:root {
+    --font-color: #060809;
+    --gray-color: #BBBBBB;
+    --accent-color: #E9672B;
+    --product-bg: #E1E0E5;
+}
+
+* {
+    margin: 0%;
+    padding: 0%;
+}
+
+body, html {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--font-color);
+    font-size: 15px;
+    /* background: #FBF8F5; */
+}
+
+.mt_5 {
+    margin-top: 5%;
+}
+
+.mt_3 {
+    margin-top: 3%;
+}
+
+.mt_4 {
+    margin-top: 4%;
+}
+
+.center_text {
+    text-align: center;
+}
+
+.top_nav {
+    background: #F7EEE3;
+    background: #060809;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    padding: 5px 30px;
+}
+
+.top_nav ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.top_nav ul li {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.top_nav ul li:last-child {
+    padding-right: 0px;
+}
+
+.top_nav ul li a {
+    color: #383633;
+    color: #fff;
+    font-size: .8rem;
+}
+
+.top_nav p {
+    font-size: .8rem;
+    color: #383633;
+    color: #fff;
+    margin-bottom: 0px;
+}
+
+.btn-accent {
+    background: var(--accent-color);
+    border-radius: 4px;
+    padding: 10px 35px;
+    color: #fff;
+    border: 1px solid var(--accent-color);
+    cursor: pointer;
+}
+
+.btn-accent.full_width {
+    width: 100%;
+}
+
+.form_group {
+    margin-bottom: 10px;
+}
+
+.contain {
+    padding: 0px 30px;
+}
+
+.container {
+    padding: 0px 60px;
+}
+
+.form_flex {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+/* .row .md_3 {
+    width: 35%;
+    float: left;
+}
+
+.row .md_7 {
+    width: 65%;
+    float: left;
+} */
+
+.grid_flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grid_flex.no_align {
+    align-items: unset;
+}
+
+.grid_2 {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid_4 {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid_5 {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.grid_6 {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.grid_3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+}
+
+.grid_3 img, .grid_4 img, .grid_5 img, .grid_6 img {
+    width: 100%;
+    height: 100%;
+}
+
+.faq_container {
+    padding: 0 15% !important;
+    width: 100%;
+    max-width: 100%;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    /* background: #274061; */
+    /* background: #F7EEE3; */
+    /* border-bottom: 1px solid var(--gray-color); */
+}
+
+.nav.fixed {
+    background: #fff;
+    /* background: #274061; */
+    /* background: #F7EEE3; */
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, .1);
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    z-index: 10;
+}
+
+.navigation.fixed {
+    background: #fff;
+    /* background: #274061; */
+    /* background: #F7EEE3; */
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, .1);
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    z-index: 10;
+}
+
+.navigation .innerNav {
+    display: flex;
+    align-items: center;
+}
+
+.navigation ul {
+    margin: 0%;
+}
+
+.navigation ul li {
+    display: inline-block;
+    margin: 0%;
+    padding-right: 15px;
+}
+
+.navigation ul li a {
+    color: var(--font-color);
+    font-size: .9rem;
+}
+
+.navigation img {
+    height: 1.3rem;
+    width: auto;
+}
+
+.navigation ul li.nav_block {
+    background: var(--accent-color);
+    color: #fff;
+    border: 1px solid var(--accent-color);
+    border-radius: 50px;
+    padding: 8px 35px;
+}
+
+.navigation ul li.nav_block a {
+    color: #fff;
+}
+
+.navigation ul li ion-icon {
+    /* border: 1px solid var(--gray-color); */
+    border-radius: 50%;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.navigation .innerNav ul {
+    margin-left: 30px;
+}
+
+.ant-input-group-wrapper.ant-input-search {
+    width: 35% !important;
+    border-radius: 50px;
+    border: 1px solid var(--gray-color);
+    height: 40px;
+}
+
+.ant-input-group>.ant-input:first-child, .ant-input-group-addon:first-child,
+.ant-input-group-addon,
+button.ant-btn.ant-btn-default.ant-btn-icon-only.ant-input-search-button {
+    border-radius: 50px;
+    border: none;
+}
+
+button.ant-btn.ant-btn-default.ant-btn-icon-only.ant-input-search-button {
+    background: transparent;
+    height: 100%;
+}
+
+.ant-input-group {
+    height: 100%;
+}
+
+.ant-input-group-addon {
+    background: transparent;
+}
+
+.ant-input {
+    height: 100%;
+}

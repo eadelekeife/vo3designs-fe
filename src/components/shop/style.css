@@ -1,0 +1,55 @@
+.shop_header {
+    height: 25rem;
+    background: url('../../assets/images/header.webp');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.furniture_content_header {
+    background: var(--product-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    border-radius: 2px;
+}
+
+.furniture_content_header img {
+    height: 8rem;
+    width: auto;
+}
+
+.banner {
+    height: 10rem;
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.mini_shop_header {
+    background: #F7EEE3;
+    background: url('../../assets/images/shop/grocery.webp');
+    height: 15rem;
+    margin-bottom: 5%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h3.product_tile_header {
+    margin-bottom: 0px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.products .portfolio_products_grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+}
+
+.product_query_desc {
+    width: 40%;
+    line-height: 1.7;
+}
