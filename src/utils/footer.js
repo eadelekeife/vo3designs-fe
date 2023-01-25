@@ -1,6 +1,6 @@
-import './style.css';
+import './utils.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import AppRoute from '../utils/routes';
 
@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 import { Input, Divider } from 'antd';
 
 const Footer = props => {
+    const [currentNav, setCurrentNav] = useState(0);
     return (
         <div className={`footer ${props.margin ? 'margin' : ''}`}>
-            <div className="first_footer">
+            {/* <div className="first_footer">
                 <div className="contain">
                     <div className="grid_flex">
                         <div className="append_button">
@@ -28,81 +29,117 @@ const Footer = props => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="second_footer">
                 <div className="contain">
                     <div className="grid_4">
-                        <div>
-                            <h5>Products List</h5>
-                            <ul>
+                        <div className="footer-grid-cover">
+                            <div
+                                onClick={() => setCurrentNav(1)}
+                                className="footer-grid-title">
+                                <h5>Products List</h5>
+                                <ion-icon class="mobile" name="add-outline"></ion-icon>
+                            </div>
+                            <ul className={`${currentNav === 1 ? 'show' : ''}`}>
                                 <li>
-                                    <Link to="">Tables</Link>
+                                    <Link to="/products/Tables"><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Tables</Link>
                                 </li>
                                 <li>
-                                    <Link to="">Chairs</Link>
+                                    <Link to="/products/Chairs"><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Chairs</Link>
                                 </li>
                                 <li>
-                                    <Link to="">Consoles</Link>
+                                    <Link to="/products/Consoles"><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Consoles</Link>
                                 </li>
                                 <li>
-                                    <Link to="">Benches</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5>About Us</h5>
-                            <ul>
-                                <li>
-                                    <Link to={AppRoute.story}>Our Story</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.portfolio}>Our Portfolio</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.blog}>Our Blog</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.returns_policy}>Returns Policy</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.faqs}>Frequently Asked Questions</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.signup}>Create Account</Link>
+                                    <Link to="/products/Benches"><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Benches</Link>
                                 </li>
                             </ul>
                         </div>
-                        <div>
-                            <h5>Resources</h5>
-                            <ul>
+                        <div className="footer-grid-cover">
+                            <div
+                                onClick={() => setCurrentNav(2)}
+                                className="footer-grid-title">
+                                <h5>About Us</h5>
+                                <ion-icon class="mobile" name="add-outline"></ion-icon>
+                            </div>
+                            <ul className={`${currentNav === 2 ? 'show' : ''}`}>
                                 <li>
-                                    <Link to={AppRoute.media}>Media</Link>
+                                    <Link to={AppRoute.story}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Our Story</Link>
                                 </li>
                                 <li>
-                                    <Link to="/">Refer a Friend</Link>
+                                    <Link to={AppRoute.shop}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Our Products</Link>
                                 </li>
                                 <li>
-                                    <Link to="/">Order Status</Link>
+                                    <Link to={AppRoute.blog}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Our Blog</Link>
                                 </li>
                                 <li>
-                                    <Link to={AppRoute.contact_us}>Contact Us</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.assembly}>Assembly Instructions</Link>
-                                </li>
-                                <li>
-                                    <Link to="/">All Products</Link>
+                                    <Link to={AppRoute.returns_policy}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Returns Policy</Link>
                                 </li>
                             </ul>
                         </div>
-                        <div>
-                            <h5>Contact Customer Experience</h5>
-                            <ul>
+                        <div className="footer-grid-cover">
+                            <div
+                                onClick={() => setCurrentNav(3)}
+                                className="footer-grid-title">
+                                <h5>Resources</h5>
+                                <ion-icon class="mobile" name="add-outline"></ion-icon>
+                            </div>
+                            <ul className={`${currentNav === 3 ? 'show' : ''}`}>
                                 <li>
-                                    <Link to="">Email: support@vo3designs.com</Link>
+                                    <Link to={AppRoute.faqs}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Frequently Asked Questions</Link>
                                 </li>
                                 <li>
-                                    <Link to="">Hours:</Link>
+                                    <Link to="/"><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Order Status</Link>
+                                </li>
+                                <li>
+                                    <Link to={AppRoute.contact_us}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Contact Us</Link>
+                                </li>
+                                <li>
+                                    <Link to={AppRoute.signup}><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Create Account</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="footer-grid-cover">
+                            <div
+                                onClick={() => setCurrentNav(4)}
+                                className="footer-grid-title">
+                                <h5>Reach out to us</h5>
+                                <ion-icon class="mobile" name="add-outline"></ion-icon>
+                            </div>
+                            <ul className={`${currentNav === 4 ? 'show' : ''}`}>
+                                <li>
+                                    <Link to=""><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> support@vo3designs.com</Link>
+                                </li>
+                                <li className="desktop">
+                                    <Link to=""><span
+                                        style={{ display: 'inline' }}
+                                        className="mobile">&bull;</span> Hours:</Link>
                                 </li>
                                 <li>
                                     <Link to="">Monday to Friday — 10am to 8pm</Link>
@@ -129,21 +166,15 @@ const Footer = props => {
                                     <Link to={AppRoute.terms}>Terms of use</Link>
                                 </li>
                                 <li>
-                                    <Link to={AppRoute.accessibility}>Accessibilty</Link>
-                                </li>
-                                <li>
-                                    <Link to={AppRoute.sitemap}>Sitemap</Link>
-                                </li>
-                                <li>
                                     <Link to={AppRoute.privacy_policy}>Privacy Policy</Link>
                                 </li>
                                 <li>
-                                    <p style={{display: 'inline'}}>  All rights reserved</p>
+                                    <p style={{ display: 'inline' }}>  All rights reserved</p>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <p>15 W 27th Street, 9th Floor New York, NY, 10001</p>
+                            <p>Behind Conoil filling Station, Eric Moore Rd, Surulere</p>
                         </div>
                     </div>
                 </div>

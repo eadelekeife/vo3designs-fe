@@ -1,15 +1,69 @@
-import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
-import { Input } from 'antd';
 
-import Nav from '../../utils/nav';
+import Nav from '../../utils/sec-nav';
+import axiosCall from '../../utils/axiosCall';
 import Footer from '../../utils/footer';
 
-const Contact = () => {
-    const { handleSubmit, control } = useForm({});
-    const { TextArea } = Input;
+import { Input, notification, Spin } from 'antd';
+import { useForm, Controller } from 'react-hook-form';
+import { LoadingOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import locationMap from '../../assets/images/content/locationmap.jpg';
+
+const Contact = props => {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24, color: '#fff', marginLeft: 20 }} spin />;
+
+    const [loadMessageButton, setLoadMessageButton] = useState(false);
+
+    const openNotificationWithIcon = (type, message) => {
+        notification[type]({
+            message: '',
+            placement: 'bottomRight',
+            description:
+                message,
+        });
+    };
+
+    const messageValidator = yup.object().shape({
+        firstName: yup.string().required('Please let us know who you are'),
+        lastName: yup.string().required('Please let us know who you are'),
+        emailAddress: yup.string().required('Please let us know how to contact you').email(),
+        message: yup.string().required('Please let us know waht you think'),
+    })
+
+    const { handleSubmit, control, formState: { errors }, setValue } = useForm({
+        resolver: yupResolver(messageValidator)
+    });
+
+    const handleContact = e => {
+        let { firstName, lastName, emailAddress, phoneNumber, message } = e;
+        setLoadMessageButton(true);
+        axiosCall.post('/users/contact-us', {
+            firstName, lastName, emailAddress, phoneNumber, message
+        }).
+            then(data => {
+                setLoadMessageButton(false);
+                if (data.data.statusMessage === "success") {
+                    setValue('firstName', props.auth.isAuthenticated ? props.auth.userDetails.firstName : '');
+                    setValue('lastName', props.auth.isAuthenticated ? props.auth.userDetails.lastName : '');
+                    setValue('emailAddress', props.auth.isAuthenticated ? props.auth.userDetails.emailAddress : '');
+                    setValue('phoneNumber', props.auth.isAuthenticated ? props.auth.userDetails.phoneNumber : '');
+                    setValue('message', '');
+                    openNotificationWithIcon('success', 'Thank you for your willingness to partner with us. We will reach out to you shortly');
+                } else {
+                    openNotificationWithIcon('error', data.data.summary);
+                }
+            })
+            .catch(err => {
+                setLoadMessageButton(false);
+                openNotificationWithIcon('error', 'An error occurred while saving data. Please try again later');
+            })
+    }
     return (
         <div>
             <Nav />
@@ -19,92 +73,120 @@ const Contact = () => {
             <div className="contact contain">
                 <div className="grid_2">
                     <div>
-                        <h4>Interested in WeWork?</h4>
-                        <p>Simply fill out the form on the left, attach your plan and provide the details of the
-                            areas you wish to have your new timber floor installed, the sub-floor we will be
-                            installing on to and your timber of choice and we can provide an estimate for your
-                            installation.</p>
-                        <div>
-                            <form>
+                        <h4>Reach out to Us</h4>
+                        <div className="mt_3">
+                            <form autoComplete="off" onSubmit={handleSubmit(handleContact)}>
                                 <div className="form_flex">
-                                    <div className="form_group">
-                                        <label>First name</label>
-                                        <Controller name="firstName" control={control}
-                                            render={({ field }) => (
-                                                <Input
-                                                    style={{ height: '3rem' }}
-                                                    {...field} name="firstName" />
-                                            )} />
+                                    <div className="form_group space">
+                                        <label htmlFor="firstName">First name</label>
+                                        <Controller name="firstName" defaultValue={
+                                            props.auth.isAuthenticated ?
+                                                props.auth.userDetails.firstName
+                                                : ''
+                                        } control={control}
+                                            render={
+                                                ({ field }) => (
+                                                    <Input {...field} id="firstName"
+                                                        type="text" style={{ height: '3.5rem' }} />
+                                                )
+                                            } />
+                                        {errors.firstName && <p className="errorMessage">{errors.firstName.message}</p>}
                                     </div>
                                     <div className="form_group">
-                                        <label>Last name</label>
-                                        <Controller name="firstName" control={control}
-                                            render={({ field }) => (
-                                                <Input
-                                                    style={{ height: '3rem' }}
-                                                    {...field} name="firstName" />
-                                            )} />
+                                        <label htmlFor="lastName">Last name</label>
+                                        <Controller name="lastName" defaultValue={
+                                            props.auth.isAuthenticated ?
+                                                props.auth.userDetails.lastName
+                                                : ''
+                                        } control={control}
+                                            render={
+                                                ({ field }) => (
+                                                    <Input {...field} id="lastName"
+                                                        type="text" style={{ height: '3.5rem' }} />
+                                                )
+                                            } />
+                                        {errors.lastName && <p className="errorMessage">{errors.lastName.message}</p>}
                                     </div>
                                 </div>
                                 <div className="form_flex">
                                     <div className="form_group">
-                                        <label>Email address</label>
-                                        <Controller name="firstName" control={control}
-                                            render={({ field }) => (
-                                                <Input
-                                                    style={{ height: '3rem' }}
-                                                    {...field} name="firstName" />
-                                            )} />
+                                        <label htmlFor="emailAddress">Email address</label>
+                                        <Controller name="emailAddress"
+                                            defaultValue={
+                                                props.auth.isAuthenticated ?
+                                                    props.auth.userDetails.emailAddress
+                                                    : ''
+                                            } control={control}
+                                            render={
+                                                ({ field }) => (
+                                                    <Input type="email" id="emailAddress" {...field} style={{ height: '3.5rem' }} />
+                                                )} />
+                                        {errors.emailAddress && <p className="errorMessage">{errors.emailAddress.message}</p>}
                                     </div>
                                     <div className="form_group">
                                         <label>Phone number <small>(optional)</small></label>
-                                        <Controller name="firstName" control={control}
+                                        <Controller name="phoneNumber" control={control}
                                             render={({ field }) => (
-                                                <Input
-                                                    style={{ height: '3rem' }}
-                                                    {...field} name="firstName" />
+                                                <Input type="tel"
+                                                    style={{ height: '3.5rem' }}
+                                                    {...field} name="phoneNumber" />
                                             )} />
                                     </div>
                                 </div>
                                 <div className="form_group">
-                                    <label>Your message</label>
-                                    <TextArea name="firstName" rows="5" />
+                                    <label htmlFor="message">Message</label>
+                                    <Controller name="message" defaultValue="" control={control}
+                                        render={
+                                            ({ field }) => (
+                                                <Input.TextArea rows={4} {...field} id="message" />
+                                            )
+                                        } />
+                                    {errors.message && <p className="errorMessage">{errors.message.message}</p>}
                                 </div>
-                                <button className="btn-accent">Get in touch with us</button>
+                                <div style={{ marginTop: '7%' }}></div>
+                                <div className="">
+                                    {
+                                        !loadMessageButton ?
+                                            <button style={{ display: 'block', width: "100%", height: '3.5rem' }} className="btn-accent no_border">Send message</button>
+                                            :
+                                            <button
+                                                disabled
+                                                style={{ display: 'block', width: "100%", height: '3.5rem' }} className="btn-accent no_border" id="modal-button" disabled>
+                                                Sending message. Please wait.<Spin indicator={antIcon} /></button>
+                                    }
+                                </div>
+                                <div style={{ clear: 'both' }}></div>
                             </form>
                         </div>
                     </div>
                     <div>
-                        <div>
-                            <h4>Get answers to your questions.</h4>
-                            <p>We would like to wish all our current and future customers a fantastic holiday
-                                period. We too are taking some time off and will be closed from 4pm Tuesday 21st
-                                December and re-opening 8am on Monday 10th January 2022. We look forward to working
-                                with you in the new year.</p>
-                            <button className="btn-accent">Read our FAQs</button>
+                        <h3>Or you can message us directly</h3>
+                        <div className="sticky_compartment">
+                            <p>For general inquiries, please call 08169511139
+                            </p>
+                            <p>For issues with our product delivery, please call 08023414932</p>
+                            <p className="mt_3">To understand what we do and a better insight into how we work, kindly
+                                visit our Instagram page @vo3designs</p>
                         </div>
-                        <div className="mt_5">
-                            <h5>We are also open for visits</h5>
-                            <p>We would like to wish all our current and future customers a fantastic holiday period. We
-                                too are taking some time off and will be closed from 4pm.</p>
-                            <div className="contact_info" style={{ display: 'block' }}>
-                                <ion-icon name="call-outline"></ion-icon><a href="/">+234 813 227 7316</a>
+                        <img src={locationMap} style={{ width: 'unset', height: 'unset' }} alt="locationMap" />
+                        <div className="sticky_social">
+                            <div>
+                                <ion-icon name="logo-facebook"></ion-icon>
+                                <ion-icon name="logo-twitter"></ion-icon>
+                                <ion-icon name="logo-instagram"></ion-icon>
+                                <ion-icon name="logo-youtube"></ion-icon>
                             </div>
-                            <div className="contact_info" style={{ display: 'block' }}>
-                                <ion-icon name="mail-open-outline"></ion-icon><a href="/"><a href="/">eadelekeife@gmail.com</a></a>
-                            </div>
-                            <div className="contact_info" style={{ display: 'block' }}>
-                                <ion-icon name="compass-outline"></ion-icon><a href="/"><a href="/">5, Onike street,
-                                    NYSC bus stop, Igando Ikotun Lagos</a></a>
-                            </div>
-                            {/* <button className="btn-accent">Read our FAQs</button> */}
                         </div>
                     </div>
                 </div>
             </div>
             <Footer margin={true} />
-        </div>
+        </div >
     )
 }
 
-export default Contact;
+const mapStateToProps = store => {
+    return { auth: store.auth };
+};
+
+export default connect(mapStateToProps)(Contact);

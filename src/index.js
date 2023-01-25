@@ -4,54 +4,99 @@ import './assets/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Main from './routes';
 
-import AppRoute from './utils/routes';
-
-import TopNav from './utils/top';
-import Nav from './utils/nav';
-
-import Homepage from './components/homepage/index';
-
-import Shop from './components/shop/index';
-import Sofa from './components/shop/sofa';
-import About from './components/mini/about';
-import Portfolio from './components/mini/portfolio';
-import Contact from './components/mini/contact';
-import Privacy from './components/mini/privacy';
-import ReturnsPolicy from './components/mini/returns_policy';
-import FAQs from './components/mini/faqs';
-import SignIn from './components/auth/signin';
-import SignUp from './components/auth/signup';
-
-import Dashboard from './components/profile/dashboard';
+import { Provider } from 'react-redux';
+import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react';
+import thunk from 'redux-thunk';
 
 const App = () => {
     return (
-        <BrowserRouter>
-            {/* <TopNav /> */}
-            <Routes>
-                <Route path="/" exact element={<Homepage />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/sofa" element={<Sofa />} />
-                <Route path="/about" element={<About />} />
-                <Route path={AppRoute.contact_us} element={<Contact />} />
-                <Route path={AppRoute.privacy_policy} element={<Privacy />} />
-                <Route path={AppRoute.returns_policy} element={<ReturnsPolicy />} />
-                <Route path={AppRoute.faqs} element={<FAQs />} />
-
-                <Route path="/portfolio" element={<Portfolio />} />
-
-                {/* auth */}
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-
-                {/* profile */}
-                <Route path={AppRoute.profile_dashboard} exact element={<Dashboard />} />
-            </Routes>
-        </BrowserRouter>
+        <div>
+            <Main />
+        </div>
     )
+}
+
+const defaultStore = {
+    userDetails: {},
+    isAuthenticated: false,
+    cartData: []
 };
 
-const root = ReactDOM.createRoot(document.querySelector('#root'));
-root.render(<App />);
+const authReducer = (store = defaultStore, action) => {
+    switch (action.type) {
+        case 'LOGIN_SUCCESS':
+            localStorage.setItem('token', action.payload.token);
+            return { ...store, userDetails: action.payload.userDetails, isAuthenticated: true };
+        case 'LOGOUT_SUCCESS':
+            localStorage.removeItem('token');
+            return {
+                ...store,
+                userDetails: {},
+                isAuthenticated: false
+            };
+        case 'UPDATE_USER':
+            return {
+                ...store,
+                userDetails: action.payload
+            };
+        case 'UPDATE_CART_DATA':
+            return {
+                ...store,
+                cartData: action.payload
+            }
+        default:
+            return store
+    }
+}
+
+const login_error = {
+    loginError: {}
+}
+
+const loginError = (store = login_error, action) => {
+    switch (action.type) {
+        case 'LOGIN_FAILURE':
+            return {
+                ...store,
+                loginError: action.payload
+            };
+        case 'CLEAR_LOGIN_ERROR':
+            return {
+                ...store,
+                loginError: ''
+            };
+        default:
+            return store
+    }
+}
+
+let combinedReducers = combineReducers({
+    auth: authReducer,
+    loginError
+})
+const persistConfig = {
+    key: 'root',
+    storage,
+    blacklist: ['loginError']
+}
+
+const persistedReducer = persistReducer(persistConfig, combinedReducers)
+
+let store = createStore(persistedReducer, applyMiddleware(thunk))
+let persistor = persistStore(store)
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    // <React.StrictMode>
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
+    </Provider>
+    // </React.StrictMode>
+);

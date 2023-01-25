@@ -1,155 +1,442 @@
-import './index.css';
+import './homepage.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { Rate, Modal, notification, Input, Drawer, Skeleton } from 'antd';
 
 import Nav from '../../utils/nav';
 import Footer from '../../utils/footer';
+import InstagramFeed from 'react-ig-feed';
+import Slider from "react-slick";
 
-import showcase1 from '../../assets/images/content/showcase1.webp';
-import showcase2 from '../../assets/images/content/showcase2.webp';
-import showcase3 from '../../assets/images/content/showcase3.webp';
-import showcase4 from '../../assets/images/content/showcase4.webp';
-import showcase5 from '../../assets/images/content/showcase5.webp';
-import showcase6 from '../../assets/images/content/showcase6.webp';
+import { Controller, useForm } from 'react-hook-form';
+import NumberFormat from 'react-number-format';
+import axiosCall from '../../utils/axiosCall';
 
-import showcase7 from '../../assets/images/content/showcase7.webp';
-import showcase8 from '../../assets/images/content/showcase8.webp';
-import showcase9 from '../../assets/images/content/showcase9.webp';
+import HeroVideo from '../../assets/videos/hero.mp4';
 
-import bombas1 from '../../assets/images/content/bombas1.webp';
-import bombas2 from '../../assets/images/content/bombas2.jpg';
-import bombas3 from '../../assets/images/content/bombas3.webp';
-import bombas4 from '../../assets/images/content/bombas4.jpg';
+import Showcase1 from '../../assets/images/new/dining.jpg';
+import Showcase2 from '../../assets/images/new/chair.jpg';
+import Showcase3 from '../../assets/images/new/bed.jpg';
+import Showcase4 from '../../assets/images/new/stool.jpg';
 
+import Mail from '../../assets/images/icons/mail.svg';
+
+// import showcase7 from '../../assets/images/homepage/prop1.jpg';
+import showcase7 from '../../assets/images/new/table.jpg';
+// import showcase8 from '../../assets/images/homepage/prop2.jpg';
+import showcase8 from '../../assets/images/new/console.jpg';
+// import showcase9 from '../../assets/images/homepage/prop3.jpg';
+import showcase9 from '../../assets/images/new/sunbeds.jpg';
+// import showcase10 from '../../assets/images/homepage/prop4.jpg';
+import showcase10 from '../../assets/images/new/benches.jpg';
 
 import testimonial from '../../assets/images/content/testimonial.webp';
+import Icons from '../../assets/images/icons.png';
+// import testimonial from '../../assets/images/products/torera.png';
 
-import packager from '../../assets/images/content/package.webp';
-import lorry from '../../assets/images/content/lorry.webp';
-import tree from '../../assets/images/content/tree.webp';
+import packager from '../../assets/images/homepage/delivery.png';
+import lorry from '../../assets/images/homepage/furnitures.png';
+import tree from '../../assets/images/homepage/chair.png';
+import { Link } from 'react-router-dom';
 
 
 const Homepage = () => {
+    let token = "IGQVJWbFFlVkZARMUxQc1BqZAWxoeVQwM0M2NEhKQmtmOHZADaDZA2OTRJM2JHZAmg2SVhrNUgyQ3VaOVBCZA1ByRG1kc0VIYVd1djFRLXNfTWNaeWFoeTVxUUZAJRmsyTXhuSTBBNDMxbFFHdkYzd3NfRVJhbwZDZD";
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [fetchingProducts, setFetchingProducts] = useState(true);
+    const [trendingProducts, setTrendingProducts] = useState([]);
+    const [category] = useState(['Seating', 'Tables', 'Chairs', 'Benches', 'Consoles', 'Beds', 'Bars', 'Sunbeds', 'Swings'])
+    const [randomValue] = useState(Math.trunc(Math.random() * 8) + 1);
+
+    const openNotificationWithIcon = (type, message) => {
+        notification[type]({
+            message: '',
+            description:
+                message,
+        });
+    };
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    const { handleSubmit, control } = useForm({});
+    useEffect(() => {
+        setTimeout(() => {
+            setIsModalVisible(true)
+        }, 8000)
+    }, [])
+
+    useEffect(() => {
+        axiosCall(`/products/trending`)
+            .then(data => {
+                if (data.data.statusMessage === "success") {
+                    setFetchingProducts(false);
+                    setTrendingProducts(data.data.message);
+                } else {
+                    openNotificationWithIcon('error', data.data.summary);
+                }
+            })
+            .catch(err => {
+                openNotificationWithIcon('error', 'An error occurred while loading data. Please reload page to try again')
+            })
+    }, [])
+
+    let skeleton = [];
+    for (let i = 0; i < 6; i++) {
+        skeleton.push(<Skeleton active />)
+    }
+    const pageSize = 24;
+
+    let settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        initialSlide: 0,
+        centerPadding: '30px',
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: false,
+                    dots: false,
+                    centerMode: true,
+                    focusOnSelect: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1,
+                    centerMode: true,
+                    focusOnSelect: true
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    centerMode: true,
+                    focusOnSelect: true
+                }
+            }
+        ]
+    }
     return (
-        <div>
+        <div className="homepage-display">
             <Nav />
             <div className="header">
                 <div>
-                    <h3>Welcome to a new standard in furniture</h3>
-                    <p>The best back-to-school essentials, bundled together so you can save and start the
-                        year comfortably.</p>
-                    <button>Shop Seating</button>
+                    <h3>Vo3 Designs</h3>
+                    <p>Extending your indoors - outdoors</p>
+                    <Link to={`/products/${category[randomValue]}`}>Shop {category[randomValue]}</Link>
                 </div>
             </div>
             <div>
                 <div className="header_product_list mt_5">
                     <div className="contain">
                         <div className="main_top">
+                            <h3
+                                style={{ textAlign: 'center' }}
+                                className="check-header">Bespoke Designs, Sustainable Furniture</h3>
                             <div className="grid_4">
                                 <div>
-                                    <img src={bombas1} alt="showcase1" />
+                                    <Link to="/products/Dining">
+                                        <img src={Showcase1} alt="showcase1" />
+                                        <h4>Dining</h4>
+                                    </Link>
                                 </div>
                                 <div>
-                                    <img src={bombas2} alt="showcase1" />
+                                    <Link to="/products/Beds">
+                                        <img src={Showcase3} alt="showcase1" />
+                                        <h4>Beds</h4>
+                                    </Link>
                                 </div>
                                 <div>
-                                    <img src={bombas3} alt="showcase1" />
+                                    <Link to="/products/Chairs">
+                                        <img src={Showcase2} alt="showcase1" />
+                                        <h4>Chairs</h4>
+                                    </Link>
                                 </div>
                                 <div>
-                                    <img src={bombas4} alt="showcase1" />
+                                    <Link to="/products/Stools">
+                                        <img src={Showcase4} alt="showcase1" />
+                                        <h4>Stools</h4>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to="/products/Tables">
+                                        <img src={showcase7} alt="showcase1" />
+                                        <h4>Tables</h4>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to="/products/Consoles">
+                                        <img src={showcase8} alt="showcase1" />
+                                        <h4>Consoles</h4>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to="/products/Sunbeds">
+                                        <img src={showcase9} alt="showcase1" />
+                                        <h4>Sunbeds</h4>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to="/products/Benches">
+                                        <img src={showcase10} alt="showcase1" />
+                                        <h4>Benches</h4>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="center_text mt_5">
-                    <h3>Explore each unique collection</h3>
-                </div>
-                <div>
-                    <div className="video_banner">
-                        <div className="video_cover">
-                            <video className="video" loop playsinline="" autoPlay muted preload="auto">
-                                <source type="video/mp4" src="https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" />
+                <div className="story_props mt_5">
+                    <div className="grid_2">
+                        <div>
+                            <div className="contain">
+                                <h3>Explore each unique collection</h3>
+                                <div className="grid_2">
+                                    <div>
+                                        <div className="">
+                                            <img src={lorry} alt="tree" />
+                                            <div>
+                                                <h4>Uniquely designed items</h4>
+                                                <p>Each Vo3 item is remarkably   designed and manufactured at the highest production standards</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="">
+                                            <img src={lorry} alt="tree" />
+                                            <div>
+                                                <h4>Space-saving solutions</h4>
+                                                <p>Our items are intentionally created to maximise and make the best use of our users' spaces</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="">
+                                            <img src={packager} alt="tree" />
+                                            <div>
+                                                <h4>Bespoke design services</h4>
+                                                <p>Haven't seen exactly what you're looking for? Feel free to contact us for your custom furniture and design needs.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="deskto">
+                                        <div className="">
+                                            <img src={tree} alt="tree" />
+                                            <div>
+                                                <h4>Sustainable Furniture</h4>
+                                                <p>Every Vo3 product is manufactured keeping eco-friendliness in mind</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="video_banner">
+                            <video loop playsinline="" autoPlay muted preload="auto">
+                                {/* "https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" */}
+                                <source type="video/mp4" src={HeroVideo} />
+
                             </video>
                         </div>
                     </div>
-                    <div className="vo3_props">
-                        <div className="container">
-                            <div className="grid_3">
-                                <div>
-                                    <div className="grid_2">
-                                        <img src={lorry} alt="tree" />
-                                        <div>
-                                            <h4>Fast & free shipping</h4>
-                                            <p>Every single order ships for free. No minimums, no tiers, no fine print whatsoever.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="grid_2">
-                                        <img src={packager} alt="tree" />
-                                        <div>
-                                            <h4>Fast & free shipping</h4>
-                                            <p>Every single order ships for free. No minimums, no tiers, no fine print whatsoever.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="grid_2">
-                                        <img src={tree} alt="tree" />
-                                        <div>
-                                            <h4>Fast & free shipping</h4>
-                                            <p>Every single order ships for free. No minimums, no tiers, no fine print whatsoever.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div className="mt_5">
+                <div className="header_product_list mt_5 testimonial-cover">
                     <div className="contain">
-                        <div>
-                            <h3>Explore each unique collection</h3>
-                        </div>
-                        <div>
+                        <div className="main_top">
+                            <h3
+                                style={{ textAlign: 'center' }}
+                                className="check-header">Reviews from people like you</h3>
                             <div className="grid_4">
-                                <div>
-                                    <img src={showcase7} alt="showcase1" />
+                                <div className="testimonial-box">
+                                    <div>
+                                        <div style={{ width: '100%', display: 'flex' }}>
+                                            <img src={Icons} alt="Icons" />
+                                        </div>
+                                        <p>
+                                            Thank you!!! I loveee the Olufemi Rocking Chair. It's gorgeous.
+                                        </p>
+                                    </div>
+                                    <div className="testimonial-box-inside">
+                                        <h4>Satisfied Customer</h4>
+                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
+                                    </div>
                                 </div>
-                                <div>
-                                    <img src={showcase8} alt="showcase1" />
+                                <div className="testimonial-box">
+                                    <div>
+                                        <div style={{ width: '100%', display: 'flex' }}>
+                                            <img src={Icons} alt="Icons" />
+                                        </div>
+                                        <p>
+                                            I absolutely love my Pergola. It has completely transformed my backyard.
+                                        </p>
+                                    </div>
+                                    <div className="testimonial-box-inside">
+                                        <h4>Satisfied Customer</h4>
+                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
+                                    </div>
                                 </div>
-                                <div>
-                                    <img src={showcase9} alt="showcase1" />
+                                <div className="testimonial-box">
+                                    <div>
+                                        <div style={{ width: '100%', display: 'flex' }}>
+                                            <img src={Icons} alt="Icons" />
+                                        </div>
+                                        <p>
+                                            I'm really big on making the best use of my space and the Torera table
+                                            is the perfect fit for me.
+                                        </p>
+                                    </div>
+                                    <div className="testimonial-box-inside">
+                                        <h4>Satisfied Customer</h4>
+                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
+                                    </div>
                                 </div>
-                                <div>
-                                    <img src={showcase9} alt="showcase1" />
+                                <div className="testimonial-box">
+                                    <div>
+                                        <div style={{ width: '100%', display: 'flex' }}>
+                                            <img src={Icons} alt="Icons" />
+                                        </div>
+                                        <p>
+                                            I absolutely love my Pergola. It has completely transformed my backyard.
+                                        </p>
+                                    </div>
+                                    <div className="testimonial-box-inside">
+                                        <h4>Satisfied Customer</h4>
+                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="testimonials mt_5">
+                <div className="story_props mt_5">
                     <div className="grid_2">
-                        <div className="grid_text_div">
-                            <div className="grid_text_cover">
-                                <h5>LOVED BY HOMEBODIES EVERYWHERE</h5>
-                                <h4>The Burrow system works beautifully. It's comfortable, absolutely solid, and looks great.</h4>
-                                <p>Michelle N Shop Index Shelves →</p>
+                        <div>
+                            <div className="contain">
+                                <h3>Explore each unique collection</h3>
+                                <div className="grid_2">
+                                    <div>
+                                        <div className="">
+                                            <img src={lorry} alt="tree" />
+                                            <div>
+                                                <h4>Uniquely designed items</h4>
+                                                <p>Each Vo3 item is remarkably   designed and manufactured at the highest production standards</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="">
+                                            <img src={lorry} alt="tree" />
+                                            <div>
+                                                <h4>Space-saving solutions</h4>
+                                                <p>Our items are intentionally created to maximise and make the best use of our users' spaces</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="">
+                                            <img src={packager} alt="tree" />
+                                            <div>
+                                                <h4>Bespoke design services</h4>
+                                                <p>Haven't seen exactly what you're looking for? Feel free to contact us for your custom furniture and design needs.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="deskto">
+                                        <div className="">
+                                            <img src={tree} alt="tree" />
+                                            <div>
+                                                <h4>Sustainable Furniture</h4>
+                                                <p>Every Vo3 product is manufactured keeping eco-friendliness in mind</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="testimonial_image_div">
-                                <img src={testimonial} alt="testimonial" className="testimonial_image" />
-                            </div>
+                        <div className="video_banner">
+                            <video loop playsinline="" autoPlay muted preload="auto">
+                                {/* "https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" */}
+                                <source type="video/mp4" src={HeroVideo} />
+
+                            </video>
                         </div>
                     </div>
                 </div>
-                {/* <div className="testimonial_footer"></div> */}
             </div>
             <Footer />
-        </div>
+            <Modal
+                footer={null}
+                title={null} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <div className="notifs_modal">
+                    <div className="grid_">
+                        <div>
+                            <div className="notifs_data">
+                                <img src={Mail} alt="subscribe to our newsletter" />
+                                <h3>Like deals, discounts and updates on our Furniture?</h3>
+                                <p>Join our VO3 tribe and we’d send them your way</p>
+                                <div>
+                                    <div className="form_group">
+                                        {/* <label>Password</label> */}
+                                        <Controller name="firstName" control={control}
+                                            render={({ field }) => (
+                                                <Input placeholder="example.gmail.com"
+                                                    style={{ height: '3rem' }}
+                                                    {...field} name="firstName" />
+                                            )} />
+                                        <button>Subscribe</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p className="unimportant">
+                                        Your privacy is important to us, so we'll never spam you or share your info with
+                                        third parties. Take a look at our privacy policy. You can also unsubscribe at any time.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div>
+                            <img src={_1} alt="_1" />
+                        </div> */}
+                    </div>
+                </div>
+            </Modal>
+            <Drawer
+                // style={{ display: 'block' }}
+                title={'Hello'} placement="right"
+                // onClose={onClose}
+                open={true}>
+                {/* <Spin spinning={spinnerLoading}> */}
+                <div>
+                    <div>
+                        <h2>Hello dude</h2>
+                    </div>
+                </div>
+                {/* </Spin> */}
+            </Drawer>
+        </div >
     )
 }
 

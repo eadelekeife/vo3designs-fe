@@ -63,6 +63,29 @@
     border-radius: 2px;
 }
 
+.our-story .faq_container img {
+    height: 25rem;
+}
+
+.contact.our-story p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.portfolio .faq_container img {
+    max-height: 30rem;
+    object-position: center;
+}
+
+.portfolio .faq_container .grid_4 img {
+    height: 10rem;
+    object-position: bottom;
+}
+
+.blog-story .faq_container img, .about-us .faq_container img {
+    height: auto;
+}
+
 .portofilio_grid_2 {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -125,7 +148,7 @@ img.showcase_grid_sec_main {
 
 .mini_header {
     height: 450px;
-    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../../assets/images/content/header.jpg');
+    /* background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../../assets/images/content/header.jpg'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -138,7 +161,7 @@ img.showcase_grid_sec_main {
 
 .portfolio_products_grid img {
     width: 100%;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 /* .portfolio_products {
@@ -154,6 +177,7 @@ img.showcase_grid_sec_main {
 .portfolio_products p.furniture_amount {
     color: #767472;
     font-size: .8rem;
+    margin-bottom: 0px;
 }
 
 .grid_bias_2 {
@@ -234,4 +258,208 @@ h2.project_company span {
 
 .contact_info {
     margin-bottom: 10px;
+}
+
+.about_sec {
+    background: #E5DCD8;
+}
+
+.about_sec .grid_4 {
+    grid-gap: 30px;
+    padding: 2% 0px;
+}
+
+.about_sec img {
+    height: 15rem;
+    object-position: center;
+    object-fit: cover;
+}
+
+.blog p {
+    font-size: .9rem;
+    line-height: 1.7;
+    margin-bottom: 0px;
+    color: rgba(0, 0, 0, .8);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    list-style: 1.2;
+}
+
+.blog .blog_img_header {
+    margin-bottom: 10px;
+    position: relative;
+    height: 10rem;
+}
+
+.blog .blog_img_header img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.blog .blog_img_header .blog_img_cover {
+    position: absolute;
+    top: 0%;
+    background: rgba(0, 0, 0, .1);
+    width: 100%;
+    height: 100%;
+}
+
+.blog .grid_4 {
+    grid-gap: 15px;
+}
+
+.blog .blog_summary {
+    border: 1px solid #F0F0F0;
+}
+
+.blog .grid_footer {
+    padding: 5px 10px;
+    border-top: 1px solid #F0F0F0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog .grid_body {
+    padding: 0% 5px 10px;
+}
+
+.blog-author {
+    text-align: right;
+}
+
+.blog-author h5 {
+    font-size: 1rem;
+}
+
+.blog-author p {
+    font-size: .9rem;
+}
+
+.blog-story .blog-header h6 {
+    font-family: 'Stratum 01';
+    margin-bottom: 0%;
+    font-size: .8rem;
+}
+
+.blog-story .blog-header a {
+    margin-left: 0%;
+}
+
+.blog-story .blog-header {
+    margin-top: 40px;
+}
+
+h3.page-title {
+    font-family: 'Stratum 01';
+    font-size: 1.8rem;
+    margin-bottom: 0px;
+    font-weight: 500;
+}
+
+.mini_shop_header h3.page-title {
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+.client-list .grid_5 {
+    align-items: center;
+}
+
+.client-list img {
+    width: 80%;
+    height: auto;
+}
+
+.sticky_social {
+    margin-top: 30px;
+}
+
+.sticky_social ion-icon {
+    font-size: 1.8rem;
+    margin-right: 10px;
+    /* color: var(--accent-color); */
+    color: #383633;
+}
+
+
+.blog-story .faq_container img {
+    height: 30rem !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+.portfolio-title {
+    font-size: 1.8rem;
+    margin-bottom: 0%;
+}
+
+@media screen and (max-width: 720px) {
+    .faq_container img {
+        height: auto !important;
+    }
+
+    .contain .faq_container {
+        padding: 0% !important;
+    }
+
+    .client-list .grid_5 {
+        display: flex;
+        flex-wrap: wrap;
+        grid-gap: 15px;
+    }
+
+    .client-list img {
+        width: 30%;
+    }
+
+    .blog .grid_4 {
+        display: flex;
+        grid-gap: 10px;
+        flex-direction: column;
+    }
+
+    .contact .grid_2 {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 50px;
+    }
+
+    .contact_bg {
+        height: 10rem;
+    }
+
+    .contact p, .contact.our-story p {
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+
+    .portfolio .faq_container .grid_4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .portfolio.mt_5 {
+        margin-top: 0px;
+    }
+
+    .portfolio .faq_container {
+        padding-top: 15% !important;
+    }
+
+    .portfolio .faq_container h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0px;
+    }
+
+    .blog-story .blog-header {
+        margin-top: 20px;
+    }
 }

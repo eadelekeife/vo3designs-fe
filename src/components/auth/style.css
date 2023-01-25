@@ -3,14 +3,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #fafafa;
 }
 
 .auth_box {
-    max-width: 65%;
+    /* max-width: 75%; */
+    /* min-width: 90%; */
     margin: 0% auto;
-    box-shadow: 0px 0px 3px rgba(0,0,0,.4);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, .4);
     padding: 15px 15px;
     border-radius: 4px;
+    background: #fff;
+}
+
+.auth_display .contain {
+    width: 40%;
 }
 
 .auth_box label {
@@ -39,8 +46,52 @@
     margin-bottom: 5px;
 }
 
+.errorMessage {
+    color: rgb(143, 8, 8);
+    font-size: .9rem;
+}
+
 /* .auth_links {
     display: flex;
     align-items: center;
     justify-content: space-between;
 } */
+
+@media screen and (max-width: 720px) {
+    .auth_box {
+        max-width: unset;
+        width: 100%;
+    }
+
+    .auth_display {
+        height: unset;
+        min-height: unset;
+        background: #fff;
+    }
+
+    .auth_box {
+        box-shadow: unset;
+        padding: 15% 0px;
+    }
+
+    .auth_box p.errorMessage, .contact .errorMessage {
+        font-size: .8rem;
+        margin-top: 10px;
+        display: block;
+    }
+
+    .contact_bg {
+        display: none;
+    }
+
+    .contact {
+        padding-top: 10% !important;
+    }
+
+    .our-story.contact {
+        padding-top: 0px !important;
+    }
+    .auth_display .contain {
+        width: 100%;
+    }
+}

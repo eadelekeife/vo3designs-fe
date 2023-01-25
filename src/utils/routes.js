@@ -1,13 +1,21 @@
-const Routes = {
-    profile_dashboard: "/profile",
+const AppRoutes = {
+    profile_dashboard: "/user/dashboard",
+    profile_orders: "/user/orders",
+    profile_delivery_details: "/user/delivery_details",
+    profile_saved_items: "/user/saved_items",
+    // profile_dashboard: "/user/",
     signin: "/signin",
     signup: "/signup",
-    forgot_password: "/forgot_password",
+    forgot_password: "/resetsendmail",
     privacy_policy: "/privacy_policy",
     //products
     tables: "/tables",
     shop: "/shop",
+    checkout: "/checkout",
+    checkout_success: "/checkout-success",
+    cart: "/cart",
     sofa: "/sofa",
+    product_detail: "/product_detail",
     story: "/story",
     faqs: "/faqs",
     blog: "/blog",
@@ -21,4 +29,4 @@ const Routes = {
     sitemap: "/sitemap",
 }
 
-export default Routes;
+export default AppRoutes;

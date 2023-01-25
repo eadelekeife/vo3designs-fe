@@ -1,65 +1,64 @@
 import './style.css';
 
 import React from 'react';
+import InstagramFeed from 'react-ig-feed';
 
-import _1 from '../../assets/images/content/_4.jpg';
-import _2 from '../../assets/images/content/_5.jpg';
-import _3 from '../../assets/images/content/_3.avif';
-import _4 from '../../assets/images/content/_1.avif';
+import { Divider } from 'antd';
+import Nav from '../../utils/sec-nav';
+import Footer from '../../utils/footer';
 
-import Process1 from '../../assets/images/content/process1.webp';
-import Process2 from '../../assets/images/content/process2.webp';
-
+import Story from '../../assets/images/content/story.jpg';
+import Paystack from '../../assets/images/clients/paystack.png';
+import Providus from '../../assets/images/clients/providus.svg';
+import Landmark from '../../assets/images/clients/lmb.png';
+import Leadway from '../../assets/images/clients/leadway.png';
+import Swiss from '../../assets/images/clients/swiss.png';
 
 const About = () => {
+    let token = "IGQVJWbFFlVkZARMUxQc1BqZAWxoeVQwM0M2NEhKQmtmOHZADaDZA2OTRJM2JHZAmg2SVhrNUgyQ3VaOVBCZA1ByRG1kc0VIYVd1djFRLXNfTWNaeWFoeTVxUUZAJRmsyTXhuSTBBNDMxbFFHdkYzd3NfRVJhbwZDZD";
     return (
         <div className="mini">
-            <div className="mini_header">
-
-            </div>
-            <div>
+            <Nav />
+            <div className="contact contain our-story mt_5">
                 <div className="faq_container">
-                    <div>
-                        <h3>We started V03 to perfect Quality</h3>
-                        <p>
-                            It is about the millions of local businesses struggling to lay their foundation
-                        </p>
-                        <p>It is about the millions of local businesses struggling to lay their foundation and grow.In 2020,
-                            we started Brass with the simple belief that businesses everywhere can have access to top-end
-                            money operations and cashflow services to ensure they can finance their business growth with
-                            cheaper and easy.</p>
-                        <p>It is about the millions of local businesses struggling to lay their foundation and grow.In
-                            2020, we started Brass with the simple belief that businesses everywhere can have access to
-                            top-end money operations and cashflow services to ensure they can finance their business
-                            growth with cheaper and easy.</p>
-                        <h3>How we work</h3>
-                        <p>It is about the millions of local businesses struggling to lay their foundation and grow.In
-                            2020, we started Brass with the simple belief that businesses everywhere can have access to
-                            top-end money operations and cashflow services to ensure they can finance their business
-                            growth with cheaper and easy.</p>
-                        <p>It is about the millions of local businesses struggling to lay their foundation and grow.In
-                            2020, we started Brass with the simple belief that businesses everywhere can have access to
-                            top-end money operations and cashflow services to ensure they can finance their business
-                            growth with cheaper and easy.</p>
-                        <img src={Process1} alt="process" />
-                        <h3>How we work</h3>
-                        <p>It is about the millions of local businesses struggling to lay their foundation and grow.In
-                            2020, we started Brass with the simple belief that businesses everywhere can have access to
-                            top-end money operations and cashflow services to ensure they can finance their business
-                            growth with cheaper and easy.</p>
-                        <p>While the new company started as an email marketing tool, our customers repeatedly asked us to
-                            spread the Mailchimp magic to other channels. They taught us that Mailchimp’s brand promise
-                            is to help small businesses “look pro and grow,” no matter the channel.</p>
-                        <p>It is about the millions of local businesses struggling to lay their foundation and grow.In
-                            2020, we started Brass with the simple belief that businesses everywhere can have access to
-                            top-end money operations and cashflow services to ensure they can finance their business
-                            growth with cheaper and easy.</p>
-                        <p>While the new company started as an email marketing tool, our customers repeatedly asked us to
-                            spread the Mailchimp magic to other channels. They taught us that Mailchimp’s brand promise
-                            is to help small businesses “look pro and grow,” no matter the channel.</p>
-                    </div>
+                    <h3 className="page-title">Our Story</h3>
+                    <img src={Story} alt="our story" />
+                    <p>
+                        At Vo3 Designs, we create spaces that help improve health and productivity by extending your
+                        indoor spaces outdoors.
+                        <br />
+                        We offer bespoke indoor and outdoor space solutions through design, manufacturing, and sales
+                        of furniture and accessories, such as patio outdoor furniture, pergolas, WPC decks
+                        planters, cladding, landscape decorations and accessories — everything to create a relaxing
+                        outdoor space.
+                        <br />
+                        Vo3 Designs has been an outdoor space experience innovator, providing services to
+                        high-end residences, resorts and hotels in Nigeria.
+                        <br />
+                        Vo3 is committed to creating outdoor living experiences all over Africa, through
+                        innovation and partnerships with top brands to Improve health and well-being of users
+                        as they stay close to nature.
+                    </p>
                 </div>
             </div>
+            <div className="about-us">
+                <div className="faq_container">
+                    <Divider />
+                    <div className="client-list">
+                        <div className="grid_5">
+                            <img src={Paystack} alt="" />
+                            <img src={Landmark} alt="" />
+                            <img src={Providus} alt="" />
+                            <img src={Leadway} alt="" />
+                            <img src={Swiss} alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div className="contai">
+
+                </div>
+            </div>
+            <Footer margin={true} />
         </div>
     )
 }
