@@ -5,7 +5,7 @@ const axiosCall = axios.create({
     // http://192.168.0.120:9000
     // http://localhost:9000
     // https://backend.vo3designs.com
-    baseURL: "http://localhost:9000/api/v1/furniture"
+    baseURL: "https://backend.vo3designs.com/api/v1/furniture"
 })
 
 export default axiosCall;

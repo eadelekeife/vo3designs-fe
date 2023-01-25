@@ -328,6 +328,27 @@
     font-size: 1.2rem;
 }
 
+.playground {
+    background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('../../assets/images/playground.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.playground h3 {
+    color: #fff;
+    font-size: 1.8rem;
+    width: 60%;
+    margin: 0px auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
 @media screen and (max-width: 720px) {
     .slick-slide {
         padding-right: 10px;
