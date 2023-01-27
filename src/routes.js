@@ -40,6 +40,7 @@ import BlogTopic2 from './components/mini/blog/wooden';
 import SingleProduct from './components/shop/product';
 import SearchProduct from './components/shop/search';
 import AllProducts from './components/shop/allproducts';
+import AllCollections from './components/shop/collections';
 import CheckoutSuccess from './components/shop/checkout-success';
 
 const Wrapper = ({ children }) => {
@@ -59,6 +60,7 @@ const App = () => {
                     <Route path="/products/:categoryName" element={<SingleProduct />} />
                     <Route path="/search/:productName" element={<SearchProduct />} />
                     <Route path="/allproducts" element={<AllProducts />} />
+                    <Route path="/collections" element={<AllCollections />} />
                     {/* <Route path="/sofa" element={<Chairs />} />
                     <Route path="/tables" element={<Tables />} />
                     <Route path="/benches" element={<Benches />} /> */}

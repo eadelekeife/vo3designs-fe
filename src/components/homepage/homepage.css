@@ -133,6 +133,8 @@
 
 .testimonials {
     background: #F7EEE3;
+    background: #fff;
+    background: #FCFBFB;
     /* background: #154C9A; */
 }
 
@@ -365,7 +367,7 @@
 
     .header div h3 {
         width: 100%;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 
     .header div p {
@@ -444,11 +446,22 @@
 
 
     .testimonial_image_div img {
-        display: none;
+        /* display: none; */
+        height: 100% !important;
+        width: 100% !important;
+        top: 0px !important;
+        left: -15% !important;
+        position: relative !important;
+    }
+
+    .testimonials.mt_5 {
+        margin-top: 00px !important;
     }
 
     .testimonials .testimonial_image_div {
-        display: none;
+        /* display: none; */
+        height: max-content;
+        overflow: visible;
     }
 
     .story_props .video_banner {

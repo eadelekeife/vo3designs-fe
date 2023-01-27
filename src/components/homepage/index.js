@@ -4,13 +4,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 import React, { useEffect, useState } from 'react';
 
-import { Rate, Modal, notification, Input, Spin, Skeleton } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Divider, Modal, notification, Input, Drawer, Skeleton } from 'antd';
 
 import Nav from '../../utils/nav';
 import Footer from '../../utils/footer';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import InstagramFeed from 'react-ig-feed';
+import Slider from "react-slick";
 
 import { Controller, useForm } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
@@ -30,7 +29,11 @@ import showcase8 from '../../assets/images/new/console.jpg';
 import showcase9 from '../../assets/images/new/sunbeds.jpg';
 import showcase10 from '../../assets/images/new/benches.jpg';
 
-import Icons from '../../assets/images/icons.png';
+import testimonial from '../../assets/images/content/testimonial.webp';
+
+import IconToLeft from '../../assets/images/icons/arrow-left-circle.svg';
+import IconToRight from '../../assets/images/icons/arrow-right-circle.svg';
+// import testimonial from '../../assets/images/products/torera.png';
 
 import packager from '../../assets/images/homepage/delivery.png';
 import lorry from '../../assets/images/homepage/furnitures.png';
@@ -45,10 +48,7 @@ const Homepage = () => {
     const [trendingProducts, setTrendingProducts] = useState([]);
     const [category] = useState(['Seating', 'Tables', 'Chairs', 'Benches', 'Consoles', 'Beds', 'Bars', 'Sunbeds', 'Swings'])
     const [randomValue] = useState(Math.trunc(Math.random() * 8) + 1);
-
-    const antIcon = (<LoadingOutlined style={{ fontSize: 24, color: '#000' }} spin />);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [sendingMessage, setSendingMessage] = useState(false);
+    const [showFirst, setShowFirst] = useState(1);
 
     const openNotificationWithIcon = (type, message) => {
         notification[type]({
@@ -69,17 +69,11 @@ const Homepage = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
-    const validator = yup.object().shape({
-        emailAddress: yup.string().email('Email is not valid').required('Email field can not be empty'),
-    })
-    const { handleSubmit, control, formState: { errors }, setValue } = useForm({
-        resolver: yupResolver(validator)
-    });
+    const { handleSubmit, control } = useForm({});
     useEffect(() => {
         setTimeout(() => {
             setIsModalVisible(true)
-        }, 12000)
+        }, 8000)
     }, [])
 
     useEffect(() => {
@@ -144,29 +138,6 @@ const Homepage = () => {
             }
         ]
     }
-
-    const subscribeButton = e => {
-        setSendingMessage(true);
-        axiosCall.post('/users/subscribe', {
-            emailAddress: e.emailAddress
-        })
-            .then(data => {
-                if (data.data.statusMessage === "success") {
-                    openNotificationWithIcon('success', `Thanks for Subscribing!`);
-                    setValue('emailAddress', '');
-                    setIsModalVisible(false);
-                    setSendingMessage(false);
-                } else {
-                    openNotificationWithIcon('error', `An error occurred while saving data. Please try again`);
-                    setSendingMessage(false);
-                }
-            })
-            .catch(err => {
-                openNotificationWithIcon('error', `An error occurred while saving data. Please try again`);
-                setSendingMessage(false);
-            })
-    }
-
     return (
         <div className="homepage-display">
             <Nav />
@@ -174,7 +145,8 @@ const Homepage = () => {
                 <div>
                     <h3>Vo3 Designs</h3>
                     <p>Extending your indoors - outdoors</p>
-                    <Link to={`/products/${category[randomValue]}`}>Shop {category[randomValue]}</Link>
+                    {/* <Link to={`/products/${category[randomValue]}`}>Shop {category[randomValue]}</Link> */}
+                    <Link to={`/collections`}>See our Collections</Link>
                 </div>
             </div>
             <div>
@@ -184,183 +156,30 @@ const Homepage = () => {
                             <h3
                                 style={{ textAlign: 'center' }}
                                 className="check-header">Bespoke Designs, Sustainable Furniture</h3>
-                            <div className="desktop">
-                                <div className="grid_4">
-                                    <div>
-                                        <Link to="/products/Dining">
-                                            <img src={Showcase1} alt="showcase1" />
-                                            <h4>Dining</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Beds">
-                                            <img src={Showcase3} alt="showcase1" />
-                                            <h4>Beds</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Chairs">
-                                            <img src={Showcase2} alt="showcase1" />
-                                            <h4>Chairs</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Stools">
-                                            <img src={Showcase4} alt="showcase1" />
-                                            <h4>Stools</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Tables">
-                                            <img src={showcase7} alt="showcase1" />
-                                            <h4>Tables</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Consoles">
-                                            <img src={showcase8} alt="showcase1" />
-                                            <h4>Consoles</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Sunbeds">
-                                            <img src={showcase9} alt="showcase1" />
-                                            <h4>Sunbeds</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Benches">
-                                            <img src={showcase10} alt="showcase1" />
-                                            <h4>Benches</h4>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="mobile">
-                                <div className="grid_4">
-                                    <div>
-                                        <Link to="/products/Dining">
-                                            <img src={Showcase1} alt="showcase1" />
-                                            <h4>Dining</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Beds">
-                                            <img src={Showcase3} alt="showcase1" />
-                                            <h4>Beds</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Chairs">
-                                            <img src={Showcase2} alt="showcase1" />
-                                            <h4>Chairs</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Stools">
-                                            <img src={Showcase4} alt="showcase1" />
-                                            <h4>Stools</h4>
-                                        </Link>
-                                    </div>
-                                    {/* <div>
-                                        <Link to="/products/Tables">
-                                            <img src={showcase7} alt="showcase1" />
-                                            <h4>Tables</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Consoles">
-                                            <img src={showcase8} alt="showcase1" />
-                                            <h4>Consoles</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Sunbeds">
-                                            <img src={showcase9} alt="showcase1" />
-                                            <h4>Sunbeds</h4>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link to="/products/Benches">
-                                            <img src={showcase10} alt="showcase1" />
-                                            <h4>Benches</h4>
-                                        </Link>
-                                    </div> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="playground mt_5">
-                    {/* <img src={Playground} alt="Playground" /> */}
-                    <div>
-                        <h3>Vo3 Playground Collections</h3>
-                        <button className="btn-accent">Check out our pieces</button>
-                    </div>
-                </div>
-                <div className="header_product_list mt_5 testimonial-cover">
-                    <div className="contain">
-                        <div className="main_top">
-                            <h3
-                                style={{ textAlign: 'center' }}
-                                className="check-header">Reviews from people like you</h3>
                             <div className="grid_4">
-                                <div className="testimonial-box">
-                                    <div>
-                                        <div style={{ width: '100%', display: 'flex' }}>
-                                            <img src={Icons} alt="Icons" />
-                                        </div>
-                                        <p>
-                                            Thank you!!! I loveee the Olufemi Rocking Chair. It's gorgeous.
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-box-inside">
-                                        <h4>Satisfied Customer</h4>
-                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
-                                    </div>
+                                <div>
+                                    <Link to="/products/Dining">
+                                        <img src={Showcase1} alt="showcase1" />
+                                        <h4>Dining</h4>
+                                    </Link>
                                 </div>
-                                <div className="testimonial-box">
-                                    <div>
-                                        <div style={{ width: '100%', display: 'flex' }}>
-                                            <img src={Icons} alt="Icons" />
-                                        </div>
-                                        <p>
-                                            I absolutely love my Pergola. It has completely transformed my backyard.
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-box-inside">
-                                        <h4>Satisfied Customer</h4>
-                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
-                                    </div>
+                                <div>
+                                    <Link to="/products/Beds">
+                                        <img src={Showcase3} alt="showcase1" />
+                                        <h4>Beds</h4>
+                                    </Link>
                                 </div>
-                                <div className="testimonial-box">
-                                    <div>
-                                        <div style={{ width: '100%', display: 'flex' }}>
-                                            <img src={Icons} alt="Icons" />
-                                        </div>
-                                        <p>
-                                            I'm really big on making the best use of my space and the Torera table
-                                            is the perfect fit for me.
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-box-inside">
-                                        <h4>Satisfied Customer</h4>
-                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
-                                    </div>
+                                <div>
+                                    <Link to="/products/Chairs">
+                                        <img src={Showcase2} alt="showcase1" />
+                                        <h4>Chairs</h4>
+                                    </Link>
                                 </div>
-                                <div className="testimonial-box">
-                                    <div>
-                                        <div style={{ width: '100%', display: 'flex' }}>
-                                            <img src={Icons} alt="Icons" />
-                                        </div>
-                                        <p>
-                                            I absolutely love my Pergola. It has completely transformed my backyard.
-                                        </p>
-                                    </div>
-                                    <div className="testimonial-box-inside">
-                                        <h4>Satisfied Customer</h4>
-                                        <Rate disabled defaultValue={5} style={{ color: '#fff' }} />
-                                    </div>
+                                <div>
+                                    <Link to="/products/Stools">
+                                        <img src={Showcase4} alt="showcase1" />
+                                        <h4>Stools</h4>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -420,6 +239,198 @@ const Homepage = () => {
                         </div>
                     </div>
                 </div>
+                <div className="header_product_list shop-shortcu mt_5">
+                    <div className="contain">
+                        <div>
+                            <h3 className="check-header">Explore our uniquely designed furniture.</h3>
+                        </div>
+                        <div>
+                            <div className="deskto main_top">
+                                <div className="grid_4">
+                                    <div>
+                                        <Link to="/products/Tables">
+                                            <img src={showcase7} alt="showcase1" />
+                                            <h4>Tables</h4>
+                                        </Link>
+                                    </div>
+                                    <div>
+                                        <Link to="/products/Consoles">
+                                            <img src={showcase8} alt="showcase1" />
+                                            <h4>Consoles</h4>
+                                        </Link>
+                                    </div>
+                                    <div>
+                                        <Link to="/products/Sunbeds">
+                                            <img src={showcase9} alt="showcase1" />
+                                            <h4>Sunbeds</h4>
+                                        </Link>
+                                    </div>
+                                    <div>
+                                        <Link to="/products/Benches">
+                                            <img src={showcase10} alt="showcase1" />
+                                            <h4>Benches</h4>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                style={{ display: 'none' }}
+                                className="mobil portfolio_products products">
+                                {
+                                    !fetchingProducts ?
+                                        trendingProducts.length > 0 ?
+                                            <div className="portfolio_products_grid">
+                                                {
+                                                    trendingProducts.map((products, index) => (
+                                                        <div
+                                                            className={`${index === (trendingProducts.length - 1) ? 'mobile' : ''}`}
+                                                            key={index}>
+                                                            <Link to={`/product_detail?productId=${products.id}&product=${products.productName}`}>
+                                                                <div>
+                                                                    <div className="product-images">
+                                                                        <img src={products.productImage} alt="extra_1" />
+                                                                    </div>
+                                                                    <h4 className="furniture_name">{products.productName}</h4>
+                                                                    <p className="furniture_amount"><span>NGN</span>
+                                                                        <NumberFormat
+                                                                            className="new_product_amount"
+                                                                            value={(+products.price).toFixed(2)} displayType={'text'} thousandSeparator={true} />
+                                                                    </p>
+                                                                </div>
+                                                            </Link>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                            :
+                                            <div className="grid_6">
+                                                {skeleton.map((placeHolder, index) => (
+                                                    <div className="item" key={index}>
+                                                        {placeHolder}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        :
+                                        <div className="grid_6">
+                                            {skeleton.map((placeHolder, index) => (
+                                                <div className="item" key={index}>
+                                                    {placeHolder}
+                                                </div>
+                                            ))}
+                                        </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="story_props mt_5">
+                    <div className="grid_2">
+                        <div>
+                            <div className="contain">
+                                <h3>Explore each unique collection</h3>
+                                <div className="grid_2">
+                                    <div>
+                                        <div className="">
+                                            <img src={lorry} alt="tree" />
+                                            <div>
+                                                <h4>Uniquely designed items</h4>
+                                                <p>Each Vo3 item is remarkably   designed and manufactured at the highest production standards</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="">
+                                            <img src={lorry} alt="tree" />
+                                            <div>
+                                                <h4>Space-saving solutions</h4>
+                                                <p>Our items are intentionally created to maximise and make the best use of our users' spaces</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="">
+                                            <img src={packager} alt="tree" />
+                                            <div>
+                                                <h4>Bespoke design services</h4>
+                                                <p>Haven't seen exactly what you're looking for? Feel free to contact us for your custom furniture and design needs.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="deskto">
+                                        <div className="">
+                                            <img src={tree} alt="tree" />
+                                            <div>
+                                                <h4>Sustainable Furniture</h4>
+                                                <p>Every Vo3 product is manufactured keeping eco-friendliness in mind</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="video_banner">
+                            <video loop playsinline="" autoPlay muted preload="auto">
+                                {/* "https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" */}
+                                <source type="video/mp4" src={HeroVideo} />
+
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div className="testimonials mt_5">
+                    <div className="grid_2">
+                        <div className="grid_text_div">
+                            <div className="grid_text_cover">
+                                <h5>LOVED BY PEOPLE LIKE YOU</h5>
+                                {
+                                    showFirst === 1 ?
+                                        <div>
+                                            <h4>I'm really big on making the best use of my space and the Torera table
+                                                is the perfect fit for me.</h4>
+                                            <p>Dr Joy Aifou, Satisfied Customer</p>
+                                        </div>
+                                        :
+                                        showFirst === 2 ?
+                                            <div>
+                                                <h4>I absolutely love my Pergola. It has completely transformed my backyard.</h4>
+                                                <p>Dr Joy Aifou, Satisfied Customer</p>
+                                            </div>
+                                            :
+                                            <div>
+                                                <h4>Thank you!!! I loveee the Olufemi Rocking Chair. It's gorgeous.</h4>
+                                                <p>Dr Joy Aifou, Satisfied Customer</p>
+                                            </div>
+                                }
+                            </div>
+                            <div
+                                style={{ display: 'flex', justifyContent: 'left', gridGap: 15, marginBottom: 20 }}
+                            >
+                                <div onClick={() => {
+                                    if (showFirst != 1) {
+                                        setShowFirst(showFirst - 1)
+                                    }
+                                }}>
+                                    <img src={IconToLeft} alt="IconToRight" />
+                                </div>
+                                <div onClick={() => {
+                                    if (showFirst != 3) {
+                                        setShowFirst(showFirst + 1)
+                                    }
+                                }}>
+                                    <img src={IconToRight} alt="IconToRight" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="testimonial_image_div">
+                                {/* <img src={testimonial} */}
+                                <img src={testimonial}
+                                    style={{ width: 'auto', height: 'auto' }}
+                                    alt="testimonial" className="testimonial_image" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <Footer />
             <Modal
@@ -433,25 +444,16 @@ const Homepage = () => {
                                 <h3>Like deals, discounts and updates on our Furniture?</h3>
                                 <p>Join our VO3 tribe and we’d send them your way</p>
                                 <div>
-                                    <form onSubmit={handleSubmit(subscribeButton)}>
-                                        <div className="form_group">
-                                            {/* <label>Password</label> */}
-                                            <Controller name="emailAddress" control={control}
-                                                render={({ field }) => (
-                                                    <Input placeholder="example.gmail.com"
-                                                        style={{ height: '3rem' }} type="email"
-                                                        {...field} name="emailAddress" />
-                                                )} />
-                                            {
-                                                !sendingMessage
-                                                    ?
-                                                    <button id="submit-form" type="submit">Subscribe</button>
-                                                    :
-                                                    <button id="submit-form" disabled={true} type="submit">
-                                                        <Spin indicator={antIcon} /></button>
-                                            }
-                                        </div>
-                                    </form>
+                                    <div className="form_group">
+                                        {/* <label>Password</label> */}
+                                        <Controller name="firstName" control={control}
+                                            render={({ field }) => (
+                                                <Input placeholder="example.gmail.com"
+                                                    style={{ height: '3rem' }}
+                                                    {...field} name="firstName" />
+                                            )} />
+                                        <button>Subscribe</button>
+                                    </div>
                                 </div>
                                 <div>
                                     <p className="unimportant">
@@ -467,7 +469,20 @@ const Homepage = () => {
                     </div>
                 </div>
             </Modal>
-        </div >
+            <Drawer
+                // style={{ display: 'block' }}
+                title={'Hello'} placement="right"
+                // onClose={onClose}
+                open={true}>
+                {/* <Spin spinning={spinnerLoading}> */}
+                <div>
+                    <div>
+                        <h2>Hello dude</h2>
+                    </div>
+                </div>
+                {/* </Spin> */}
+            </Drawer>
+        </div>
     )
 }
 
