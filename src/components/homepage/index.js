@@ -16,6 +16,7 @@ import NumberFormat from 'react-number-format';
 import axiosCall from '../../utils/axiosCall';
 
 import HeroVideo from '../../assets/videos/hero.mp4';
+import PlaygroundVideo from '../../assets/videos/vo3_CLIMBER.mp4';
 
 import Showcase1 from '../../assets/images/new/dining.jpg';
 import Showcase2 from '../../assets/images/new/chair.jpg';
@@ -185,18 +186,20 @@ const Homepage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="story_props mt_5">
+                <div className="story_props mt_5 playground-display">
                     <div className="grid_2">
                         <div>
                             <div className="contain">
-                                <h3>Explore each unique collection</h3>
+                                <h3>Vo3 Playground Collections</h3>
                                 <div className="grid_2">
                                     <div>
                                         <div className="">
                                             <img src={lorry} alt="tree" />
                                             <div>
-                                                <h4>Uniquely designed items</h4>
-                                                <p>Each Vo3 item is remarkably   designed and manufactured at the highest production standards</p>
+                                                <h4>Safe Construction</h4>
+                                                <p>Our equipments are made from sturdy materials and designed to withstand heavy use
+                                                    and weather with minimal upkeep.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -204,8 +207,8 @@ const Homepage = () => {
                                         <div className="">
                                             <img src={lorry} alt="tree" />
                                             <div>
-                                                <h4>Space-saving solutions</h4>
-                                                <p>Our items are intentionally created to maximise and make the best use of our users' spaces</p>
+                                                <h4>Good fall zones</h4>
+                                                <p>Our collections have great fall zones to provide cushioned surface that will reduce the impact of fall and prevent injuries.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -213,8 +216,8 @@ const Homepage = () => {
                                         <div className="">
                                             <img src={packager} alt="tree" />
                                             <div>
-                                                <h4>Bespoke design services</h4>
-                                                <p>Haven't seen exactly what you're looking for? Feel free to contact us for your custom furniture and design needs.</p>
+                                                <h4>Versatile design</h4>
+                                                <p>Every collection can be used for multiple activites such as climbing, sliding and swinging to keep kids engaged.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -222,18 +225,20 @@ const Homepage = () => {
                                         <div className="">
                                             <img src={tree} alt="tree" />
                                             <div>
-                                                <h4>Sustainable Furniture</h4>
-                                                <p>Every Vo3 product is manufactured keeping eco-friendliness in mind</p>
+                                                <h4>Sensory-rich Experience</h4>
+                                                <p>We provide children with a variety of stimulating experiences to enhance cognitive 
+                                                    development and physical coordination.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <Link to="/products/Playground Collection">Check out our Collections <ion-icon name="arrow-forward-circle-outline"></ion-icon></Link>
                             </div>
                         </div>
                         <div className="video_banner">
                             <video loop playsinline="" autoPlay muted preload="auto">
                                 {/* "https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" */}
-                                <source type="video/mp4" src={HeroVideo} />
+                                <source type="video/mp4" src={PlaygroundVideo} />
 
                             </video>
                         </div>
@@ -469,19 +474,6 @@ const Homepage = () => {
                     </div>
                 </div>
             </Modal>
-            <Drawer
-                // style={{ display: 'block' }}
-                title={'Hello'} placement="right"
-                // onClose={onClose}
-                open={true}>
-                {/* <Spin spinning={spinnerLoading}> */}
-                <div>
-                    <div>
-                        <h2>Hello dude</h2>
-                    </div>
-                </div>
-                {/* </Spin> */}
-            </Drawer>
         </div>
     )
 }
