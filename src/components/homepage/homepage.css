@@ -344,7 +344,7 @@
 }
 
 .playground {
-    background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('../../assets/images/playground.jpg');
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../../assets/images/playground.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -569,11 +569,12 @@
         object-position: top;
         padding-top: 30px;
     }
+
     .story_props.playground-display a {
         color: #383633;
         font-size: .9rem;
     }
-    
+
     .story_props.playground-display a ion-icon {
         font-size: 1.2rem;
         margin-bottom: 0%;
@@ -586,4 +587,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.testimonials .grid_2 div.grid_text_div img {
+    cursor: pointer;
 }

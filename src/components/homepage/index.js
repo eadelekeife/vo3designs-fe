@@ -4,19 +4,22 @@ import "slick-carousel/slick/slick-theme.css";
 
 import React, { useEffect, useState } from 'react';
 
-import { Divider, Modal, notification, Input, Drawer, Skeleton } from 'antd';
+import { Rate, Modal, notification, Input, Spin, Skeleton } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import Nav from '../../utils/nav';
 import Footer from '../../utils/footer';
 import InstagramFeed from 'react-ig-feed';
 import Slider from "react-slick";
-
 import { Controller, useForm } from 'react-hook-form';
-import NumberFormat from 'react-number-format';
 import axiosCall from '../../utils/axiosCall';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import HeroVideo from '../../assets/videos/hero.mp4';
-import PlaygroundVideo from '../../assets/videos/vo3_CLIMBER.mp4';
+import NumberFormat from 'react-number-format';
+
+// import HeroVideo from '../../assets/videos/hero.mp4';
+// import PlaygroundVideo from '../../assets/videos/vo3_CLIMBER.mp4';
 
 import Showcase1 from '../../assets/images/new/dining.jpg';
 import Showcase2 from '../../assets/images/new/chair.jpg';
@@ -34,7 +37,6 @@ import testimonial from '../../assets/images/content/testimonial.webp';
 
 import IconToLeft from '../../assets/images/icons/arrow-left-circle.svg';
 import IconToRight from '../../assets/images/icons/arrow-right-circle.svg';
-// import testimonial from '../../assets/images/products/torera.png';
 
 import packager from '../../assets/images/homepage/delivery.png';
 import lorry from '../../assets/images/homepage/furnitures.png';
@@ -50,6 +52,9 @@ const Homepage = () => {
     const [category] = useState(['Seating', 'Tables', 'Chairs', 'Benches', 'Consoles', 'Beds', 'Bars', 'Sunbeds', 'Swings'])
     const [randomValue] = useState(Math.trunc(Math.random() * 8) + 1);
     const [showFirst, setShowFirst] = useState(1);
+    const [sendingMessage, setSendingMessage] = useState(false);
+
+    const antIcon = (<LoadingOutlined style={{ fontSize: 24, color: '#000' }} spin />);
 
     const openNotificationWithIcon = (type, message) => {
         notification[type]({
@@ -58,39 +63,6 @@ const Homepage = () => {
                 message,
         });
     };
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-    const { handleSubmit, control } = useForm({});
-    useEffect(() => {
-        setTimeout(() => {
-            setIsModalVisible(true)
-        }, 8000)
-    }, [])
-
-    useEffect(() => {
-        axiosCall(`/products/trending`)
-            .then(data => {
-                if (data.data.statusMessage === "success") {
-                    setFetchingProducts(false);
-                    setTrendingProducts(data.data.message);
-                } else {
-                    openNotificationWithIcon('error', data.data.summary);
-                }
-            })
-            .catch(err => {
-                openNotificationWithIcon('error', 'An error occurred while loading data. Please reload page to try again')
-            })
-    }, [])
 
     let skeleton = [];
     for (let i = 0; i < 6; i++) {
@@ -139,6 +111,65 @@ const Homepage = () => {
             }
         ]
     }
+
+    const validator = yup.object().shape({
+        emailAddress: yup.string().email('Email is not valid').required('Email field can not be empty'),
+    })
+    const { handleSubmit, control, formState: { errors }, setValue } = useForm({
+        resolver: yupResolver(validator)
+    });
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    useEffect(() => {
+        axiosCall(`/products/trending`)
+            .then(data => {
+                if (data.data.statusMessage === "success") {
+                    setFetchingProducts(false);
+                    setTrendingProducts(data.data.message);
+                } else {
+                    openNotificationWithIcon('error', data.data.summary);
+                }
+            })
+            .catch(err => {
+                openNotificationWithIcon('error', 'An error occurred while loading data. Please reload page to try again')
+            })
+    }, [])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsModalVisible(true)
+        }, 12000)
+    }, [])
+
+    const subscribeButton = e => {
+        setSendingMessage(true);
+        axiosCall.post('/users/subscribe', {
+            emailAddress: e.emailAddress
+        })
+            .then(data => {
+                if (data.data.statusMessage === "success") {
+                    openNotificationWithIcon('success', `Thanks for Subscribing!`);
+                    setValue('emailAddress', '');
+                    setIsModalVisible(false);
+                    setSendingMessage(false);
+                } else {
+                    openNotificationWithIcon('error', `An error occurred while saving data. Please try again`);
+                    setSendingMessage(false);
+                }
+            })
+            .catch(err => {
+                openNotificationWithIcon('error', `An error occurred while saving data. Please try again`);
+                setSendingMessage(false);
+            })
+    }
+
     return (
         <div className="homepage-display">
             <Nav />
@@ -147,7 +178,7 @@ const Homepage = () => {
                     <h3>Vo3 Designs</h3>
                     <p>Extending your indoors - outdoors</p>
                     {/* <Link to={`/products/${category[randomValue]}`}>Shop {category[randomValue]}</Link> */}
-                    <Link to={`/collections`}>See our Collections</Link>
+                    <Link to={`/collections`}>See our Collection</Link>
                 </div>
             </div>
             <div>
@@ -190,7 +221,7 @@ const Homepage = () => {
                     <div className="grid_2">
                         <div>
                             <div className="contain">
-                                <h3>Vo3 Playground Collections</h3>
+                                <h3>Vo3 Playground Collection</h3>
                                 <div className="grid_2">
                                     <div>
                                         <div className="">
@@ -226,7 +257,7 @@ const Homepage = () => {
                                             <img src={tree} alt="tree" />
                                             <div>
                                                 <h4>Sensory-rich Experience</h4>
-                                                <p>We provide children with a variety of stimulating experiences to enhance cognitive 
+                                                <p>We provide children with a variety of stimulating experiences to enhance cognitive
                                                     development and physical coordination.</p>
                                             </div>
                                         </div>
@@ -238,7 +269,7 @@ const Homepage = () => {
                         <div className="video_banner">
                             <video loop playsinline="" autoPlay muted preload="auto">
                                 {/* "https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" */}
-                                <source type="video/mp4" src={PlaygroundVideo} />
+                                <source type="video/mp4" src="https://vo3designs.s3.amazonaws.com/vo3_CLIMBER.mp4" />
 
                             </video>
                         </div>
@@ -376,7 +407,7 @@ const Homepage = () => {
                         <div className="video_banner">
                             <video loop playsinline="" autoPlay muted preload="auto">
                                 {/* "https://media.graphassets.com/okjMYiS3eRh9cULy7cDg" */}
-                                <source type="video/mp4" src={HeroVideo} />
+                                <source type="video/mp4" src="https://vo3designs.s3.amazonaws.com/hero.mp4" />
 
                             </video>
                         </div>
@@ -390,21 +421,23 @@ const Homepage = () => {
                                 {
                                     showFirst === 1 ?
                                         <div>
-                                            <h4>I'm really big on making the best use of my space and the Torera table
-                                                is the perfect fit for me.</h4>
-                                            <p>Dr Joy Aifou, Satisfied Customer</p>
+                                            <h4>My set-up looks amazing. Thanks to you guys for such a nice table.</h4>
+                                            {/* <h4>I'm really big on making the best use of my space and the Torera table
+                                                is the perfect fit for me.</h4> */}
+                                            <p>Mr. Jamal</p>
                                         </div>
                                         :
-                                        showFirst === 2 ?
-                                            <div>
-                                                <h4>I absolutely love my Pergola. It has completely transformed my backyard.</h4>
-                                                <p>Dr Joy Aifou, Satisfied Customer</p>
-                                            </div>
-                                            :
-                                            <div>
-                                                <h4>Thank you!!! I loveee the Olufemi Rocking Chair. It's gorgeous.</h4>
-                                                <p>Dr Joy Aifou, Satisfied Customer</p>
-                                            </div>
+                                        // showFirst === 2 ?
+                                        <div>
+                                            <h4>The table was well received. Thanks alot, it looks really nice.</h4>
+                                            {/* <h4>I absolutely love my Pergola. It has completely transformed my backyard.</h4> */}
+                                            <p>Mr, Akintomiwa</p>
+                                        </div>
+                                    // :
+                                    // <div>
+                                    //     <h4>Thank you!!! I loveee the Olufemi Rocking Chair. It's gorgeous.</h4>
+                                    //     <p>Dr Joy Aifou, Satisfied Customer</p>
+                                    // </div>
                                 }
                             </div>
                             <div
@@ -418,7 +451,7 @@ const Homepage = () => {
                                     <img src={IconToLeft} alt="IconToRight" />
                                 </div>
                                 <div onClick={() => {
-                                    if (showFirst != 3) {
+                                    if (showFirst != 2) {
                                         setShowFirst(showFirst + 1)
                                     }
                                 }}>
@@ -449,16 +482,25 @@ const Homepage = () => {
                                 <h3>Like deals, discounts and updates on our Furniture?</h3>
                                 <p>Join our VO3 tribe and we’d send them your way</p>
                                 <div>
-                                    <div className="form_group">
-                                        {/* <label>Password</label> */}
-                                        <Controller name="firstName" control={control}
-                                            render={({ field }) => (
-                                                <Input placeholder="example.gmail.com"
-                                                    style={{ height: '3rem' }}
-                                                    {...field} name="firstName" />
-                                            )} />
-                                        <button>Subscribe</button>
-                                    </div>
+                                    <form onSubmit={handleSubmit(subscribeButton)}>
+                                        <div className="form_group">
+                                            {/* <label>Password</label> */}
+                                            <Controller name="emailAddress" control={control}
+                                                render={({ field }) => (
+                                                    <Input placeholder="example.gmail.com"
+                                                        style={{ height: '3rem' }} type="email"
+                                                        {...field} name="emailAddress" />
+                                                )} />
+                                            {
+                                                !sendingMessage
+                                                    ?
+                                                    <button id="submit-form" type="submit">Subscribe</button>
+                                                    :
+                                                    <button id="submit-form" disabled={true} type="submit">
+                                                        <Spin indicator={antIcon} /></button>
+                                            }
+                                        </div>
+                                    </form>
                                 </div>
                                 <div>
                                     <p className="unimportant">

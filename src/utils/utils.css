@@ -325,6 +325,10 @@
         font-size: .8rem;
     }
 
+    .sec_footer p.footer-address {
+        line-height: 1.8;
+    }
+
     .top_nav div {
         display: none;
     }

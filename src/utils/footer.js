@@ -56,7 +56,7 @@ const Footer = props => {
                                         style={{ display: 'inline' }}
                                         className="mobile">&bull;</span> Consoles</Link>
                                 </li>
-                                <li>
+                                <li>x
                                     <Link to="/products/Benches"><span
                                         style={{ display: 'inline' }}
                                         className="mobile">&bull;</span> Benches</Link>
@@ -134,7 +134,7 @@ const Footer = props => {
                                 <li>
                                     <Link to=""><span
                                         style={{ display: 'inline' }}
-                                        className="mobile">&bull;</span> support@vo3designs.com</Link>
+                                        className="mobile">&bull;</span> hello@vo3designs.com</Link>
                                 </li>
                                 <li className="desktop">
                                     <Link to=""><span
@@ -174,7 +174,7 @@ const Footer = props => {
                             </ul>
                         </div>
                         <div>
-                            <p>Behind Conoil filling Station, Eric Moore Rd, Surulere</p>
+                            <p className="footer-address">The Dance Place - Behind Conoil filling Station, Eric Moore Rd, Surulere</p>
                         </div>
                     </div>
                 </div>

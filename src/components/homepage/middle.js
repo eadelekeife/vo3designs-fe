@@ -13,7 +13,6 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Controller, useForm } from 'react-hook-form';
-import NumberFormat from 'react-number-format';
 import axiosCall from '../../utils/axiosCall';
 
 import HeroVideo from '../../assets/videos/hero.mp4';

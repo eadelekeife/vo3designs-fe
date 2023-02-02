@@ -462,8 +462,10 @@ h3.product_tile_header {
     }
 
     .products .portfolio_products_grid img {
-        height: 8rem;
+        height: 9rem;
         margin-bottom: 5px;
+        object-fit: cover;
+        object-position: top;
     }
 
     .single_product_detail .grid_2 {
