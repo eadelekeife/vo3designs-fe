@@ -239,7 +239,7 @@ const Homepage = () => {
                                             <img src={lorry} alt="tree" />
                                             <div>
                                                 <h4>Good fall zones</h4>
-                                                <p>Our collections have great fall zones to provide cushioned surface that will reduce the impact of fall and prevent injuries.</p>
+                                                <p>Our collection has great fall zones to provide cushioned surface that will reduce the impact of fall and prevent injuries.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -263,7 +263,7 @@ const Homepage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <Link to="/products/Playground Collection">Check out our Collections <ion-icon name="arrow-forward-circle-outline"></ion-icon></Link>
+                                <Link to="/products/Playground Collection">Check out our Collection <ion-icon name="arrow-forward-circle-outline"></ion-icon></Link>
                             </div>
                         </div>
                         <div className="video_banner">
@@ -421,23 +421,22 @@ const Homepage = () => {
                                 {
                                     showFirst === 1 ?
                                         <div>
-                                            <h4>My set-up looks amazing. Thanks to you guys for such a nice table.</h4>
-                                            {/* <h4>I'm really big on making the best use of my space and the Torera table
-                                                is the perfect fit for me.</h4> */}
-                                            <p>Mr. Jamal</p>
+                                            <h4>I'm really big on making the best use of my space and the Torera table
+                                                is the perfect fit for me.</h4>
+                                            <p>Dr Joy Aifou, Satisfied Customer</p>
                                         </div>
                                         :
-                                        // showFirst === 2 ?
-                                        <div>
-                                            <h4>The table was well received. Thanks alot, it looks really nice.</h4>
-                                            {/* <h4>I absolutely love my Pergola. It has completely transformed my backyard.</h4> */}
-                                            <p>Mr, Akintomiwa</p>
-                                        </div>
-                                    // :
-                                    // <div>
-                                    //     <h4>Thank you!!! I loveee the Olufemi Rocking Chair. It's gorgeous.</h4>
-                                    //     <p>Dr Joy Aifou, Satisfied Customer</p>
-                                    // </div>
+                                        showFirst === 2 ?
+                                            <div>
+                                                <h4>The table was well received. Thanks alot, it looks really nice.</h4>
+                                                {/* <h4>I absolutely love my Pergola. It has completely transformed my backyard.</h4> */}
+                                                <p>Mr, Akintomiwa, Satisfied Customer</p>
+                                            </div>
+                                            :
+                                            <div>
+                                                <h4>My set-up looks amazing. Thanks to you guys for such a nice table.</h4>
+                                                <p>Mr. Jamal, Satisfied Customer</p>
+                                            </div>
                                 }
                             </div>
                             <div
@@ -451,7 +450,7 @@ const Homepage = () => {
                                     <img src={IconToLeft} alt="IconToRight" />
                                 </div>
                                 <div onClick={() => {
-                                    if (showFirst != 2) {
+                                    if (showFirst != 3) {
                                         setShowFirst(showFirst + 1)
                                     }
                                 }}>
