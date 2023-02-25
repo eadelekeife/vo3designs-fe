@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Link } from 'react-router-dom';
-import { Input, Drawer, Spin } from 'antd';
+import { Input, notification, Spin } from 'antd';
 import { loginUser, clearLoginError } from '../../utils/reducers/auth';
 import * as yup from 'yup';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -17,6 +17,13 @@ import Footer from '../../utils/footer';
 import AppRoutes from '../../utils/routes.js';
 
 const SignIn = props => {
+
+    const openNotificationWithIcon = (type, message) => {
+        notification[type]({
+            message: '',
+            description: message
+        });
+    };
 
     const [loadingData, setLoadingData] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -32,6 +39,10 @@ const SignIn = props => {
         resolver: yupResolver(validator)
     });
     useEffect(() => {
+        if (localStorage.getItem('new-account')) {
+            openNotificationWithIcon('success', 'Account created successfully and an email was sent to your inbox! Please log in to continue.');
+            localStorage.removeItem('new-account');
+        }
         if (props.auth.isAuthenticated) {
             window.location = AppRoutes.profile_dashboard;
         }
@@ -94,7 +105,7 @@ const SignIn = props => {
                                             <button
                                                 style={{ height: '3.5rem' }}
                                                 disabled
-                                                className="btn-accent full_width">Signing In. Please wait.... <Spin indicator={antIcon} /></button>
+                                                className="btn-accent full_width"><Spin indicator={antIcon} /></button>
                                     }
                                 </form>
                                 <div className="auth_links">

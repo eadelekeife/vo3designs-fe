@@ -19,7 +19,7 @@ const SignUp = props => {
     const [loadingData, setLoadingData] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const antIcon = <LoadingOutlined style={{ fontSize: 24, color: '#fff' }} spin />;
+    const antIcon = <LoadingOutlined style={{ fontSize: 24, color: '#000' }} spin />;
 
     const signupValidator = yup.object().shape({
         emailAddress: yup.string().email('Please enter a valid email address').required('Please enter your email address'),
@@ -41,6 +41,7 @@ const SignUp = props => {
         })
             .then(userData => {
                 if (userData.data.statusMessage === "success") {
+                    localStorage.setItem('new-account', true);
                     window.location = `/signin`;
                 } else {
                     setLoadingData(false);
@@ -119,7 +120,6 @@ const SignUp = props => {
                                             loadingData
                                                 ?
                                                 <button className="btn-accent full_width">
-                                                    <span style={{ marginRight: '10px' }}>Creating Account. Please wait...</span>
                                                     <Spin indicator={antIcon} /></button>
                                                 :
                                                 <button className="btn-accent full_width">Create Account</button>

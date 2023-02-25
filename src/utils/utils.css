@@ -229,6 +229,22 @@
     position: relative;
 }
 
+
+.cart-data .empty_div h3 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.cart-data .empty_div img {
+    width: 60%;
+    margin-bottom: 0px;
+}
+
+.cart-data .empty_div a {
+    color: inherit;
+    font-size: 1rem;
+}
+
 @media screen and (max-width: 720px) {
     .navigation {
         padding: 15px 3%;

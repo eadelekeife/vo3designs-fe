@@ -17,7 +17,7 @@ const SuccessfulCheckOut = props => {
                     <img src={SuccessImage} alt="empty" />
                     <h3>Transaction Completed!</h3>
                     <p>Your transaction has been completed successfully and your delivery process has begun. We will deliver
-                        your merchandise on.
+                        your items on.
                     </p>
                     <Link className="btn_red" to={AppRoute.profile_orders}>See Transaction History</Link>
                 </div>

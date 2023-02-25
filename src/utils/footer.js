@@ -160,7 +160,7 @@ const Footer = props => {
                     </div>
                     <div className="sec_footer">
                         <div>
-                            <p>&copy; 2022 Vo3 Designs</p>
+                            <p>&copy; {new Date().getFullYear()} Vo3 Designs</p>
                             <ul>
                                 <li>
                                     <Link to={AppRoute.terms}>Terms of use</Link>
@@ -174,7 +174,7 @@ const Footer = props => {
                             </ul>
                         </div>
                         <div>
-                            <p className="footer-address">The Dance Place - Behind Conoil filling Station, Eric Moore Rd, Surulere</p>
+                            <p className="footer-address">The Dance Place - Conoil filling Station, Eric Moore Road, Surulere.</p>
                         </div>
                     </div>
                 </div>

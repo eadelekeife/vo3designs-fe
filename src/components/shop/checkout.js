@@ -19,6 +19,9 @@ import { v4 as uuid } from 'uuid';
 import Nav from '../../utils/sec-nav';
 import Footer from '../../utils/footer';
 
+import ArrowLeft from '../../assets/images/icons/arrow-left-circle.svg';
+import ArrowRight from '../../assets/images/icons/arrow-right-circle.svg';
+
 import AppRoute from '../../utils/routes';
 
 const CheckOut = props => {
@@ -252,7 +255,7 @@ const CheckOut = props => {
             deliveryType,
             deliveryState: 'Lagos',
             deliveryLGA: 'Surulere', deliveryFee: 0,
-            address: 'The Dance Place - Behind Conoil filling Station, Eric Moore Rd, Surulere', orderTotalCost,
+            address: 'The Dance Place - Conoil filling Station, Eric Moore Road, Surulere.e3', orderTotalCost,
             cartData, cartTotalCost,
             orderInformation: e.orderInformation
         };
@@ -407,7 +410,7 @@ const CheckOut = props => {
                                                 formDataToShow === "pickupDetails" ?
                                                     <div className="checkout-form">
                                                         <div>
-                                                            <h3>Enter Your Pickup Details</h3>
+                                                            <h3>Your Pickup Details</h3>
                                                         </div>
                                                         <form onSubmit={handlePickUpSubmit(setUserPickupDetails)} className="mt-3">
                                                             <div className="form_flex">
@@ -456,13 +459,13 @@ const CheckOut = props => {
                                                                     {errors.deliveryState && <p className="errorMessage">{errors.deliveryState.message}</p>}
                                                                 </div>
                                                                 <div className="form_group">
-                                                                    <label htmlFor="deliveryLGA">Delivery State</label>
+                                                                    <label style={{ visibility: 'hidden' }} htmlFor="deliveryLGA">Delivery State</label>
                                                                     <Controller name="deliveryLGA" control={controlPickUp}
                                                                         render={({ field }) => {
                                                                             return (
                                                                                 <Input
                                                                                     style={{ height: '3rem' }} disabled {...field}
-                                                                                    defaultValue="The Dance Place - Behind Conoil filling Station, Eric Moore Rd, Surulere" />
+                                                                                    defaultValue="The Dance Place - Conoil filling Station, Eric Moore Road, Surulere.e3" />
                                                                             )
                                                                         }} />
                                                                     {errors.deliveryLGA && <p className="errorMessage">{errors.deliveryLGA.message}</p>}
@@ -482,7 +485,7 @@ const CheckOut = props => {
                                                             <div className="mt_5 grid_flex">
                                                                 <button
                                                                     onClick={() => setFormDataToShow('shippingType')}
-                                                                    className="btn_blank">Set Order Option</button>
+                                                                    className="btn_blank"><img src={ArrowLeft} alt="Arrow Left" />Change Order Option</button>
                                                                 {
                                                                     loadingData
                                                                         ?
@@ -548,7 +551,7 @@ const CheckOut = props => {
                                                                         {errors.deliveryState && <p className="errorMessage">{errors.deliveryState.message}</p>}
                                                                     </div>
                                                                     <div className="form_group">
-                                                                        <label htmlFor="deliveryLGA">Delivery State</label>
+                                                                        <label style={{ visibility: 'hidden' }} htmlFor="deliveryLGA">Delivery State</label>
                                                                         <Controller name="deliveryLGA" control={control}
                                                                             render={({ field }) => {
                                                                                 return (
@@ -592,7 +595,7 @@ const CheckOut = props => {
                                                                 <div className="mt_5 grid_flex">
                                                                     <button
                                                                         onClick={() => setFormDataToShow('shippingType')}
-                                                                        className="btn_blank">Set Order Option</button>
+                                                                        className="btn_blank"><img src={ArrowLeft} alt="Arrow Left" /> Change Order Option</button>
                                                                     {
                                                                         loadingData
                                                                             ?

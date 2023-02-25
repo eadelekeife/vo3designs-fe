@@ -117,9 +117,10 @@ const Shop = props => {
                     data.data.message.saved ? setProductInWishList(true) : setProductInWishList(false);
                     if (data.data.message.cartData) {
                         setProductInCart(true);
+                        setCurrentCartId(data.data.message.cartData.id);
                         setProductCartData(data.data.message.cartData);
                         setProductCartQuantity(+data.data.message.cartData.quantity);
-                        setCurrentColor(data.data.message.cartData.color)
+                        setCurrentColor(data.data.message.cartData.color);
                         setValue('quantity-select-box', +data.data.message.cartData.quantity);
                     };
                 } else {
@@ -165,11 +166,11 @@ const Shop = props => {
                 userId: props.auth.userDetails.id,
                 cartId: localStorage.getItem('cart-token')
             })
-                .then(cartResponse => {
+                .then(async cartResponse => {
                     if (cartResponse.data.statusMessage === "success") {
+                        setCurrentCartId(() => cartResponse.data.message.currentCartId);
                         setProductInCart(true);
                         localStorage.setItem('cart-token', cartResponse.data.message.cartId);
-                        setCurrentCartId(cartResponse.data.message.currentCartId);
                         setSpinning(false);
                         openNotificationWithIcon('success', 'Product added to cart successfully');
                     } else {
@@ -394,7 +395,7 @@ const Shop = props => {
                                 </div>
                                 <button
                                     onClick={() => {
-                                        productInCart ? updateCartQuantity(productCartData.id) : addProductToCart(productData.id)
+                                        productInCart ? updateCartQuantity(currentCartId) : addProductToCart(productData.id)
                                     }}
                                     className="btn-accent full_width">
                                     {

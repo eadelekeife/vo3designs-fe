@@ -532,7 +532,10 @@ const Nav = props => {
                                                 <div className="empty_div">
                                                     <div>
                                                         <img src={Empty} alt="empty" />
-                                                        <h3>You have not added any product to cart yet</h3>
+                                                        <h3>No items in cart yet, Let's help you get started</h3>
+                                                        <Link
+                                                            onClick={onClose}
+                                                            className="btn-accent" to="/collections">Start Shopping</Link>
                                                     </div>
                                                 </div>
                                 }
