@@ -668,4 +668,17 @@ button.ant-btn.ant-btn-default.ant-btn-icon-only.ant-input-search-button {
         margin: 0% auto;
         display: block;
     }
+
+    .search_product .empty_div {
+        min-height: 20rem;
+    }
+
+    .search_product .empty_div img {
+        height: 10rem;
+        margin-bottom: 0px;
+    }
+
+    .search_product .empty_div h3 {
+        width: 100%;
+    }
 }

@@ -9,14 +9,15 @@ import Nav from '../../utils/sec-nav';
 import Footer from '../../utils/footer';
 import axiosCall from '../../utils/axiosCall';
 
-import Showcase1 from '../../assets/images/new/dining.jpg';
-import Showcase2 from '../../assets/images/new/chair.jpg';
+
+import Showcase1 from '../../assets/images/homepage/dining.jpg';
+import Showcase2 from '../../assets/images/homepage/chairs.jpg';
 import Showcase3 from '../../assets/images/new/bed.jpg';
 import Showcase4 from '../../assets/images/new/stool.jpg';
-import showcase7 from '../../assets/images/new/table.jpg';
-import showcase8 from '../../assets/images/new/console.jpg';
-import showcase9 from '../../assets/images/new/sunbeds.jpg';
-import showcase10 from '../../assets/images/new/benches.jpg';
+import showcase7 from '../../assets/images/homepage/table.jpg';
+import showcase8 from '../../assets/images/homepage/console.jpg';
+import showcase9 from '../../assets/images/homepage/sunbed.jpg';
+import showcase10 from '../../assets/images/homepage/bench1.jpg';
 
 const AllProducts = () => {
 

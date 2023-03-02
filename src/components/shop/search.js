@@ -33,7 +33,7 @@ const SearchProduct = () => {
 
     useEffect(() => {
         setAllProducts([]);
-        setFetchingProducts(false);
+        setFetchingProducts(true);
         setTrendingProducts([]);
         let { productName } = parameters;
         axiosCall(`/products/search/${productName}`)
@@ -67,7 +67,7 @@ const SearchProduct = () => {
 
             </div> */}
             <div>
-                <div className="products contain mt_5">
+                <div className="search_product products contain mt_5">
                     <div className="portfolio_products">
                         <h3 className="product_tile_header">{parameters.productName.slice(0, 1).toUpperCase()}{parameters.productName.slice(1).toLowerCase()}</h3>
                         {

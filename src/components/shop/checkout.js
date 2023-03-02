@@ -58,6 +58,7 @@ const CheckOut = props => {
     const [formDataToShow, setFormDataToShow] = useState('shippingType');
     const [dateToUse, setDateToUse] = useState([]);
     const [deliveryDate, setDeliveryDate] = useState('');
+    const [tax, setTax] = useState(7.5);
 
     const [deliveryStates] = useState(['ikoyi', 'vi', 'marina', 'lekki I', 'lekki II-ajah', 'yaba', 'opebi-ikeja', 'surulere-festac', 'gbagada-magodo I']);
 
@@ -79,7 +80,8 @@ const CheckOut = props => {
                         let itemPrice = +cart.Product.discount ? ((cart.Product.discount * cart.Product.price) / 100) : cart.Product.price;
                         cartTotalCost += +(cart.quantity * +itemPrice);
                     })
-                    setOrderTotalCost(cartTotalCost);
+                    let taxToAdd = ((tax * cartTotalCost) / 100);
+                    setOrderTotalCost(+cartTotalCost + +taxToAdd);
                     setCartTotalCost(cartTotalCost);
                     setValue('orderFee', `NGN ${cartTotalCost}`);
                     setCartData(userCart.data.message);
@@ -115,7 +117,8 @@ const CheckOut = props => {
         e === "Lagos" ? setDeliveryFee(deliveryFee) : setDeliveryFee(deliveryFee);
         e === "Lagos" ? setValue('deliveryFee', 'NGN 500.00') : setValue('deliveryFee', 'NGN 1000.00');
         let newCartTotal = deliveryFee + +cartTotalCost;
-        setOrderTotalCost(newCartTotal);
+        let taxToAdd = ((tax * cartTotalCost) / 100);
+        setOrderTotalCost(+newCartTotal + +taxToAdd);
         setValue('orderFee', `NGN ${newCartTotal}`);
         setNigerianLGAData(StatesData[e]);
     };
@@ -239,7 +242,8 @@ const CheckOut = props => {
             let prodDelivery = data.Product[e.deliveryLGA] * data.quantity;
             tempDeliveryFee += prodDelivery;
         })
-        setOrderTotalCost(+tempDeliveryFee + +cartTotalCost);
+        let taxToAdd = ((tax * cartTotalCost) / 100);
+        setOrderTotalCost(+tempDeliveryFee + +cartTotalCost + +taxToAdd);
         setUserFormData(userFormData);
         setDeliveryFee(tempDeliveryFee);
         if (e.deliveryLGA) {
@@ -260,7 +264,8 @@ const CheckOut = props => {
             orderInformation: e.orderInformation
         };
         setDeliveryFee(0);
-        setOrderTotalCost(+cartTotalCost + 0);
+        let taxToAdd = ((tax * cartTotalCost) / 100);
+        setOrderTotalCost(+cartTotalCost + 0 + +taxToAdd);
         setUserFormData(userFormData);
         setFormDataToShow('deliveryDates');
     }
@@ -278,7 +283,8 @@ const CheckOut = props => {
                 orderInformation: ''
             };
             setDeliveryFee(0);
-            setOrderTotalCost(+cartTotalCost + 0);
+            let taxToAdd = ((tax * cartTotalCost) / 100);
+            setOrderTotalCost(+cartTotalCost + 0 + +taxToAdd);
             setUserFormData(userFormData);
         }
         setDeliveryType(e.target.value);
@@ -485,15 +491,14 @@ const CheckOut = props => {
                                                             <div className="mt_5 grid_flex">
                                                                 <button
                                                                     onClick={() => setFormDataToShow('shippingType')}
-                                                                    className="btn_blank"><img src={ArrowLeft} alt="Arrow Left" />Change Order Option</button>
+                                                                    className="btn_blank"><span style={{ marginRight: 10 }}><img src={ArrowLeft} alt="Arrow Left" /></span>Change Order Option</button>
                                                                 {
                                                                     loadingData
                                                                         ?
                                                                         <button className="btn-accent">
-                                                                            <span style={{ marginRight: '10px' }}>Please wait...</span>
                                                                             <Spin indicator={antIcon} /></button>
                                                                         :
-                                                                        <button className="btn-accent">Select Delivery Date</button>
+                                                                        <button className="btn-accent">Save Pickup Details</button>
                                                                 }
                                                             </div>
                                                         </form>
@@ -600,10 +605,9 @@ const CheckOut = props => {
                                                                         loadingData
                                                                             ?
                                                                             <button className="btn-accent">
-                                                                                <span style={{ marginRight: '10px' }}>Please wait...</span>
                                                                                 <Spin indicator={antIcon} /></button>
                                                                             :
-                                                                            <button className="btn-accent">Select Delivery Date</button>
+                                                                            <button className="btn-accent">Save Delivery Details</button>
                                                                     }
                                                                 </div>
                                                             </form>
@@ -638,7 +642,7 @@ const CheckOut = props => {
                                                                                     name="deliveryStateReview" />
                                                                             </div>
                                                                             <div className="form_group">
-                                                                                <label htmlFor="deliveryLGAReview">Delivery LGA</label>
+                                                                                <label style={{ visibility: 'hidden' }} htmlFor="deliveryLGAReview">Delivery LGA</label>
                                                                                 <Input disabled style={{ height: '3rem' }} type="text"
                                                                                     defaultValue={`${userFormData.deliveryLGA.slice(0, 1).toUpperCase()}${userFormData.deliveryLGA.slice(1)}`}
                                                                                     name="deliveryLGAReview" />
@@ -672,7 +676,7 @@ const CheckOut = props => {
                                                                         </div>
                                                                         <button
                                                                             onClick={() => setFormDataToShow('shippingType')}
-                                                                            className="btn_blank">Set Order Option</button>
+                                                                            className="btn_blank"><img src={ArrowLeft} alt="Arrow Left" /> Change Order Option</button>
                                                                     </form>
                                                                 </div>
                                                                 <div>
@@ -693,8 +697,10 @@ const CheckOut = props => {
                                                                                 </span>
                                                                             </li>
                                                                             <li>
-                                                                                <span className="first">Order Size</span>
-                                                                                <span className="second"><span className="currency">NGN</span> 0.00kg</span>
+                                                                                <span className="first">Tax</span>
+                                                                                <span className="second"><span className="currency">NGN</span>
+                                                                                    <NumberFormat prefix="" value={((tax * cartTotalCost) / 100).toFixed(2)} className="foo"
+                                                                                        displayType={'text'} thousandSeparator={true} /></span>
                                                                             </li>
                                                                             <li>
                                                                                 <span className="first">Less Coupon</span>

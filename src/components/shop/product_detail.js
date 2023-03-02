@@ -43,6 +43,7 @@ const Shop = props => {
     const [currentImage, setCurrentImage] = useState(0);
     const [productCartQuantity, setProductCartQuantity] = useState(1);
     const [currentCartId, setCurrentCartId] = useState('');
+    const [productColorsBox, setProductColorsBox] = useState([]);
 
     let skeleton = [];
     for (let i = 0; i < 6; i++) {
@@ -106,6 +107,12 @@ const Shop = props => {
         })
             .then(data => {
                 if (data.data.statusMessage === "success") {
+                    if (!data.data.message.productData.productColors.length) {
+                        setProductColorsBox([]);
+                        setCurrentColor('other');
+                    } else {
+                        setProductColorsBox(data.data.message.productData.productColors);
+                    }
                     setFetchingProducts(false);
                     setSpinning(false);
                     setProductData(data.data.message.productData);
@@ -130,7 +137,6 @@ const Shop = props => {
             })
             .catch(err => {
                 setSpinning(false);
-                console.log(err)
                 openNotificationWithIcon('error', 'An error occurred while loading data. Please reload page to try again')
             })
         axiosCall(`/products/trending`)
@@ -227,16 +233,12 @@ const Shop = props => {
 
     const nextProductImage = () => {
         if (currentImage !== (imageBox.length - 1)) {
-            console.log('next')
             setCurrentImage(currentImage + 1);
         }
     }
 
     const previousProductImage = () => {
-        console.log('previous')
-        console.log(currentImage)
         if (currentImage !== 0) {
-            console.log(currentImage - 1)
             setCurrentImage(currentImage - 1);
         }
     }
@@ -315,8 +317,13 @@ const Shop = props => {
                                 </div>
                             </div>
                             {/* <p className="product_detail">{!fetchingProducts ? productData?.description : <Skeleton active />}</p> */}
-                            <p className="product_detail">Please note that production and delivery usually takes between 25 - 30 working days and production timeline
-                                increases by a minimum of 5 working days for multiple orders.</p>
+                            <p className="product_detail">
+                                We offer the perfect combination of quality, design, sustainability, and customer
+                                service. We are confident that you will love our products, and we can't wait to
+                                help you create the perfect space for your home or office.
+                            </p>
+                            {/* <p className="product_detail">Please note that production and delivery usually takes between 25 - 30 working days and production timeline
+                                increases by a minimum of 5 working days for multiple orders.</p> */}
                             <p className="product_detail">Fabric or Dimension customization attracts an additional cost. Please reach out to our customer support team to
                                 make your desired specification after your order is completed.
                             </p>
@@ -325,40 +332,25 @@ const Shop = props => {
                                     <p className="desktop">Color:</p>
                                     <div className="inline_display">
                                         <div>
-                                            <div
-                                                onClick={() => selectItemColor('#E1E0E5')}
-                                                className={`color_bar ${currentColor === '#E1E0E5' ? 'selectedColor' : ''}`}>
-                                                <div
-                                                    style={{ background: '#E1E0E5', height: 'inherit', width: 'inherit' }}>
-                                                    <ion-icon name="checkmark-outline"></ion-icon>
-                                                </div>
-                                            </div>
-                                            <div
-                                                onClick={() => selectItemColor('#E9672B')}
-                                                className={`color_bar ${currentColor === '#E9672B' ? 'selectedColor' : ''}`}>
-                                                <div style={{ background: '#E9672B', height: 'inherit', width: 'inherit' }}>
-                                                    <ion-icon name="checkmark-outline"></ion-icon>
-                                                </div>
-                                            </div>
-                                            <div
-                                                onClick={() => selectItemColor('#000')}
-                                                className={`color_bar ${currentColor === '#000' ? 'selectedColor' : ''}`}>
-                                                <div style={{ background: '#000', height: 'inherit', width: 'inherit' }}>
-                                                    <ion-icon name="checkmark-outline"></ion-icon>
-                                                </div>
-                                            </div>
-                                            <div
-                                                onClick={() => selectItemColor('#FADB14')}
-                                                className={`color_bar ${currentColor === '#FADB14' ? 'selectedColor' : ''}`}>
-                                                <div style={{ background: '#FADB14', height: 'inherit', width: 'inherit' }}>
-                                                    <ion-icon name="checkmark-outline"></ion-icon>
-                                                </div>
-                                            </div>
-                                            <div
-                                                onClick={() => selectItemColor('other')}
-                                                className={`color_bar ${currentColor === 'other' ? 'selectedColor' : ''}`}>
-                                                <img src={ColorBar} alt="colorbar" />
-                                            </div>
+                                            {
+                                                productColorsBox.length ?
+                                                    productColorsBox.map((color, index) => {
+                                                        return (
+                                                            <div key={index}
+                                                                onClick={() => selectItemColor(color.colorCode)}
+                                                                className={`color_bar ${currentColor === color.colorCode ? 'selectedColor' : ''}`}>
+                                                                <div style={{ background: color.colorCode, height: 'inherit', width: 'inherit' }}>
+                                                                    <ion-icon name="checkmark-outline"></ion-icon>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }) :
+                                                    <div
+                                                        onClick={() => selectItemColor('other')}
+                                                        className={`color_bar ${currentColor === 'other' ? 'selectedColor' : ''}`}>
+                                                        <img src={ColorBar} alt="colorbar" />
+                                                    </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -367,7 +359,7 @@ const Shop = props => {
                                     <p className="desktop">Dimension:</p>
                                     <div className="inline_display">
                                         <div>
-                                            <div className="dimension_box">{!fetchingProducts ? productData?.dimension : ''}ft</div>
+                                            <div className="dimension_box">{!fetchingProducts ? productData?.dimension : ''}</div>
                                         </div>
                                     </div>
                                 </div>

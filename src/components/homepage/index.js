@@ -21,19 +21,20 @@ import NumberFormat from 'react-number-format';
 // import HeroVideo from '../../assets/videos/hero.mp4';
 // import PlaygroundVideo from '../../assets/videos/vo3_CLIMBER.mp4';
 
-import Showcase1 from '../../assets/images/new/dining.jpg';
-import Showcase2 from '../../assets/images/new/chair.jpg';
+import Showcase1 from '../../assets/images/homepage/dining.jpg';
+import Showcase2 from '../../assets/images/homepage/chairs.jpg';
 import Showcase3 from '../../assets/images/new/bed.jpg';
 import Showcase4 from '../../assets/images/new/stool.jpg';
 
 import Mail from '../../assets/images/icons/mail.svg';
 
-import showcase7 from '../../assets/images/new/table.jpg';
-import showcase8 from '../../assets/images/new/console.jpg';
-import showcase9 from '../../assets/images/new/sunbeds.jpg';
-import showcase10 from '../../assets/images/new/benches.jpg';
+import showcase7 from '../../assets/images/homepage/table.jpg';
+import showcase8 from '../../assets/images/homepage/console.jpg';
+import showcase9 from '../../assets/images/homepage/sunbed.jpg';
+import showcase10 from '../../assets/images/homepage/bench1.jpg';
 
-import testimonial from '../../assets/images/content/testimonial.webp';
+// import testimonial from '../../assets/images/content/testimonial.png';
+import testimonial from '../../assets/images/content/testi.png';
 
 import IconToLeft from '../../assets/images/icons/arrow-left-circle.svg';
 import IconToRight from '../../assets/images/icons/arrow-right-circle.svg';
@@ -461,7 +462,7 @@ const Homepage = () => {
                         <div>
                             <div className="testimonial_image_div">
                                 {/* <img src={testimonial} */}
-                                <img src={testimonial}
+                                <img src={testimonial}k
                                     style={{ width: 'auto', height: 'auto' }}
                                     alt="testimonial" className="testimonial_image" />
                             </div>

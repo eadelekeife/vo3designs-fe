@@ -56,7 +56,7 @@ const Footer = props => {
                                         style={{ display: 'inline' }}
                                         className="mobile">&bull;</span> Consoles</Link>
                                 </li>
-                                <li>x
+                                <li>
                                     <Link to="/products/Benches"><span
                                         style={{ display: 'inline' }}
                                         className="mobile">&bull;</span> Benches</Link>

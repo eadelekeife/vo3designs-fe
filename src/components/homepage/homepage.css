@@ -145,9 +145,13 @@
 }
 
 .testimonials .testimonial_image_div img {
-    position: absolute;
+    /* position: absolute;
     top: -15%;
-    left: -15%;
+    left: -15%; */
+    width: 100% !important;
+    height: 100% !important;
+    /* object-fit: cover; */
+    /* object-position: center; */
 }
 
 .testimonials .testimonial_image_div div {

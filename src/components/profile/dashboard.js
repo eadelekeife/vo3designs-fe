@@ -1,10 +1,10 @@
 import './profile.css';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 import { Controller, useForm } from 'react-hook-form';
-import { Divider, Input, Tabs, Spin } from 'antd';
+import { Divider, Input, Tabs, Spin, notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import axios from '../../utils/axiosCall';
 import { useNavigate } from "react-router";
@@ -35,6 +35,13 @@ const Dashboard = props => {
         setSize(e.target.value);
     };
 
+    const openNotificationWithIcon = (type, message) => {
+        notification[type]({
+            message: '',
+            description: message
+        });
+    };
+
     const antIcon = <LoadingOutlined style={{ fontSize: 24, color: '#fff' }} spin />;
 
     const digitsOnly = (value) => /^\d+$/.test(value);
@@ -44,6 +51,13 @@ const Dashboard = props => {
         firstName: yup.string().required('Please enter your first name'),
         lastName: yup.string().required('Please enter your last name')
     })
+
+    useEffect(() => {
+        if (localStorage.getItem('account_update_success')) {
+            openNotificationWithIcon('success', 'Account update successful.');
+            localStorage.removeItem('account_update_success');
+        }
+    }, [])
 
     const userValidator = yup.object().shape({
         emailAddress: yup.string().email('Email address is not valid').required('Email address field is required'),
@@ -56,8 +70,17 @@ const Dashboard = props => {
             .nullable()
     })
 
+    const userValidatorPassword = yup.object().shape({
+        oldPassword: yup.string().required('Please enter your old password'),
+        newPassword: yup.string().required('Please enter your new password')
+    })
+
     const { handleSubmit, control, formState: { errors } } = useForm({
         resolver: yupResolver(userValidator)
+    });
+
+    const { handleSubmit: handlePasswordSubmit, control: controlPassword, formState: { errors: errorsPassword } } = useForm({
+        resolver: yupResolver(userValidatorPassword)
     });
 
     const changePassword = e => {
@@ -72,8 +95,8 @@ const Dashboard = props => {
             }
         })
             .then(data => {
-                console.log(data)
                 if (data.data.statusMessage === 'success') {
+                    localStorage.setItem('account_update_success', true);
                     navigate(0)
                     // history.go(0);
                 } else {
@@ -99,8 +122,10 @@ const Dashboard = props => {
             }
         })
             .then(data => {
+                console.log(data)
                 if (data.data.statusMessage === 'success') {
                     props.updateUser(data.data.message);
+                    localStorage.setItem('account_update_success', true);
                     navigate(0);
                 } else {
                     setLoadUserError(data.data.summary);
@@ -121,13 +146,13 @@ const Dashboard = props => {
                     <div className="profile_data">
                         <div className="profile-data-display">
                             <h3 className="product_tile_header">Profile Overview</h3>
-                            <Divider style={{margin: 0, marginBottom: 10}} />
+                            <Divider style={{ margin: 0, marginBottom: 10 }} />
                             <div>
                                 <Tabs type="mt-5 card">
                                     <TabPane tab="Basic settings" key="1">
                                         <div className="width-70">
                                             {loadUserError ?
-                                                <p className="error-message">{loadUserError}</p> : ''
+                                                <p className="errorMessage">{loadUserError}</p> : ''
                                             }
                                             <form onSubmit={handleSubmit(updateUserInfo)}>
                                                 <div className="form_flex">
@@ -195,30 +220,30 @@ const Dashboard = props => {
                                     <TabPane tab="Change Password" key="2">
                                         <div className="width-70">
                                             {loadPasswordError ?
-                                                <p className="error-message">{loadPasswordError}</p> : ''
+                                                <p className="errorMessage">{loadPasswordError}</p> : ''
                                             }
-                                            <form onSubmit={handleSubmit(changePassword)}>
+                                            <form onSubmit={handlePasswordSubmit(changePassword)}>
                                                 <div className="form_group">
                                                     <label htmlFor="oldPassword">Old Password</label>
-                                                    <Controller name="oldPassword" control={control} defaultValue=""
+                                                    <Controller name="oldPassword" control={controlPassword} defaultValue=""
                                                         render={({ field }) => {
                                                             return (
                                                                 <Input.Password style={{ height: '3rem' }} type="password" {...field}
                                                                     name="oldPassword" />
                                                             )
                                                         }} />
-                                                    {errors.oldPassword && <p className="errorMessage">{errors.oldPassword.message}</p>}
+                                                    {errorsPassword.oldPassword && <p className="errorMessage">{errorsPassword.oldPassword.message}</p>}
                                                 </div>
                                                 <div className="form_group">
                                                     <label htmlFor="newPassword">New Password</label>
-                                                    <Controller name="newPassword" control={control} defaultValue=""
+                                                    <Controller name="newPassword" control={controlPassword} defaultValue=""
                                                         render={({ field }) => {
                                                             return (
                                                                 <Input.Password type="password" style={{ height: '3rem' }} {...field}
                                                                     name="newPassword" />
                                                             )
                                                         }} />
-                                                    {errors.newPassword && <p className="errorMessage">{errors.newPassword.message}</p>}
+                                                    {errorsPassword.newPassword && <p className="errorMessage">{errorsPassword.newPassword.message}</p>}
                                                 </div>
                                                 <div style={{ marginTop: '5%', display: 'block' }}></div>
 
@@ -253,4 +278,4 @@ const mapStateToProps = state => {
     return { auth: state.auth, loginError: state.loginError }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, { updateUser })(Dashboard);

@@ -162,9 +162,9 @@ const Contact = props => {
                     <div>
                         <h3>Or you can message us directly</h3>
                         <div className="sticky_compartment">
-                            <p>For general inquiries, please call 08169511139
+                            <p>For general inquiries, please call <a href="tel:+2348034652105">0803 465 2105</a>
                             </p>
-                            <p>For issues with our product delivery, please call 08023414932</p>
+                            <p>For issues with our product delivery, please call <a href="tel:+2348034652105">0803 465 2105</a></p>
                             <p className="mt_3">To understand what we do and a better insight into how we work, kindly
                                 visit our Instagram page @vo3designs</p>
                         </div>
