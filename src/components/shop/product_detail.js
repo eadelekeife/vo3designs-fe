@@ -316,12 +316,12 @@ const Shop = props => {
                                     }
                                 </div>
                             </div>
-                            {/* <p className="product_detail">{!fetchingProducts ? productData?.description : <Skeleton active />}</p> */}
-                            <p className="product_detail">
+                            <p className="product_detail">{!fetchingProducts ? productData?.description : <Skeleton active />}</p>
+                            {/* <p className="product_detail">
                                 We offer the perfect combination of quality, design, sustainability, and customer
                                 service. We are confident that you will love our products, and we can't wait to
                                 help you create the perfect space for your home or office.
-                            </p>
+                            </p> */}
                             {/* <p className="product_detail">Please note that production and delivery usually takes between 25 - 30 working days and production timeline
                                 increases by a minimum of 5 working days for multiple orders.</p> */}
                             <p className="product_detail">Fabric or Dimension customization attracts an additional cost. Please reach out to our customer support team to

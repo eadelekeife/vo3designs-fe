@@ -57,13 +57,10 @@ const App = () => {
             <Wrapper>
                 <Routes>
                     <Route path="/" exact element={<Homepage />} />
-                    <Route path="/products/:categoryName" element={<SingleProduct />} />
-                    <Route path="/search/:productName" element={<SearchProduct />} />
-                    <Route path="/allproducts" element={<AllProducts />} />
-                    <Route path="/collections" element={<AllCollections />} />
-                    {/* <Route path="/sofa" element={<Chairs />} />
-                    <Route path="/tables" element={<Tables />} />
-                    <Route path="/benches" element={<Benches />} /> */}
+                    <Route path={AppRoute.product} element={<SingleProduct />} />
+                    <Route path={AppRoute.search_product_name} element={<SearchProduct />} />
+                    <Route path={AppRoute.all_products} element={<AllProducts />} />
+                    <Route path={AppRoute.collections} element={<AllCollections />} />
                     <Route path={AppRoute.product_detail} element={<ProductDetail />} />
                     <Route path={AppRoute.checkout} element={<ProtectedRoutes><Checkout /></ProtectedRoutes>} />
                     <Route path={AppRoute.checkout_success} element={<ProtectedRoutes><CheckoutSuccess /></ProtectedRoutes>} />
@@ -74,20 +71,19 @@ const App = () => {
                     <Route path={AppRoute.faqs} element={<FAQs />} />
                     <Route path={AppRoute.terms} element={<Terms />} />
 
-                    {/* <Route path={AppRoute.cart} element={<Cart />} /> */}
-                    <Route path={`${AppRoute.portfolio}/:companyName/:companyId`} element={<Portfolio />} />
+                    <Route path={AppRoute.portfolio} element={<Portfolio />} />
                     <Route path={AppRoute.blog} element={<Blog />} />
                     <Route path="/blogspot/designing-your-outdoor-space" element={<BlogTopic1 />} />
                     <Route path="/blogspot/5-ways-to-use-or-repurpose-wooden-crates" element={<BlogTopic2 />} />
 
                     {/* auth */}
-                    <Route path="/signin" element={<AuthProtectedRoutes><SignIn /></AuthProtectedRoutes>} />
-                    <Route path="/signup" element={<AuthProtectedRoutes><SignUp /></AuthProtectedRoutes>} />
-                    <Route path="/signout" element={<ProtectedRoutes><SignOut /></ProtectedRoutes>} />
-                    <Route path="/resetsendmail" element={<AuthProtectedRoutes><ResetSendMail /></AuthProtectedRoutes>} />
-                    <Route path="/mailsent" element={<AuthProtectedRoutes><MailSent /></AuthProtectedRoutes>} />
-                    <Route path="/resetpassword" element={<AuthProtectedRoutes><ResetPassword /></AuthProtectedRoutes>} />
-                    <Route path="/passwordreset" element={<AuthProtectedRoutes><Passwordreset /></AuthProtectedRoutes>} />
+                    <Route path={AppRoute.signin} element={<AuthProtectedRoutes><SignIn /></AuthProtectedRoutes>} />
+                    <Route path={AppRoute.signup} element={<AuthProtectedRoutes><SignUp /></AuthProtectedRoutes>} />
+                    <Route path={AppRoute.signout} element={<ProtectedRoutes><SignOut /></ProtectedRoutes>} />
+                    <Route path={AppRoute.reset_send_mail} element={<AuthProtectedRoutes><ResetSendMail /></AuthProtectedRoutes>} />
+                    <Route path={AppRoute.mail_sent} element={<AuthProtectedRoutes><MailSent /></AuthProtectedRoutes>} />
+                    <Route path={AppRoute.reset_password} element={<AuthProtectedRoutes><ResetPassword /></AuthProtectedRoutes>} />
+                    <Route path={AppRoute.password_reset} element={<AuthProtectedRoutes><Passwordreset /></AuthProtectedRoutes>} />
 
                     {/* profile */}
                     <Route path={AppRoute.profile_dashboard} exact element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />

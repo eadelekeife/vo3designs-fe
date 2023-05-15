@@ -40,6 +40,7 @@ const AllProducts = () => {
         axiosCall(`/products/trending`)
             .then(data => {
                 if (data.data.statusMessage === "success") {
+                    setFetchingProducts(false);
                     setTrendingProducts(data.data.message);
                 } else {
                     openNotificationWithIcon('error', data.data.summary);

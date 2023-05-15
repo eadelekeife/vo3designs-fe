@@ -145,7 +145,7 @@ const Footer = props => {
                                     <Link to="">Monday to Friday — 10am to 8pm</Link>
                                 </li>
                                 <li>
-                                    <Link to="">Saturday to Sunday — 10am to 2pm</Link>
+                                    <Link to="">Saturday to Sunday — Closed</Link>
                                 </li>
                             </ul>
                             {/* <div>

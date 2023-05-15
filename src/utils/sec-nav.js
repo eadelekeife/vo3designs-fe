@@ -370,7 +370,7 @@ const Nav = props => {
                                 <li>
                                     <Dropdown className="dropme" class="helllos"
                                         overlay={rentals}>
-                                        <Link to="#">
+                                        <Link onClick={e => e.preventDefault()} to="#">
                                             Products
                                         </Link>
                                     </Dropdown>
@@ -381,7 +381,7 @@ const Nav = props => {
                                 <li>
                                     <Dropdown
                                         overlay={portfolio}>
-                                        <Link to="#">Our Portfolio</Link>
+                                        <Link onClick={e => e.preventDefault()} to="#">Our Portfolio</Link>
                                     </Dropdown>
                                 </li>
                                 <li>
