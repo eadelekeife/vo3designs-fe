@@ -68,8 +68,6 @@ const SignIn = props => {
                     <div className="auth_box">
                         <div>
                             <h1 style={{ marginBottom: 15 }}>Sign in to your account!</h1>
-                            {/* <p>Complete the form below and a member of our team will reach out to learn more about your
-                                workplace needs.</p> */}
                             <div>
                                 {
                                     errorMessage ?
@@ -110,7 +108,7 @@ const SignIn = props => {
                                 </form>
                                 <div className="auth_links">
                                     <p>No account yet? <Link to={AppRoutes.signup}>Sign up here!</Link></p>
-                                    <p>Forgot Password? <Link to={AppRoutes.forgot_password}>Reset password here!</Link></p>
+                                    <p>Forgot Password? <Link to={AppRoutes.reset_send_mail}>Reset password here!</Link></p>
                                 </div>
                             </div>
                         </div>

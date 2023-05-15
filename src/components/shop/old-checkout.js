@@ -145,6 +145,89 @@ const CheckOut = props => {
         resolver: yupResolver(pickupValidator)
     });
 
+    const onSuccess = (reference) => {
+        // Implementation for whatever you want to do with reference and after success call.
+        console.log('running')
+        setFetchingCheckoutData(true);
+        axiosCall.post('/users/cart/checkout', {
+            userFormData, transId: reference.trxref, deliveryDate
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(merchandiseData => {
+                console.log(merchandiseData)
+                if (merchandiseData.data.statusMessage === "success") {
+                    window.location.href = "/checkout-success";
+                } else {
+                    setFetchingCheckoutData(false);
+                    openNotificationWithIcon('error', 'An error occurred while completing transaction. Please try again..');
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                setFetchingCheckoutData(false);
+                openNotificationWithIcon('error', 'An error occurred while completing transaction. Please try again..');
+            })
+    };
+
+    const onClose = () => {
+        // implementation for  whatever you want to do when the Paystack dialog closed.
+        console.log('closed')
+    }
+
+    const fwloyaltyConfig = {
+        public_key: publicKey,
+        tx_ref: uuidv4,
+        amount: +orderTotalCost,
+        currency: 'NGN',
+        payment_options: 'card',
+        customer: {
+            // email: props.auth.isAuthenticated ? props.auth.userDetails.emailAddress : '',
+            email: 'eadelekeife@gmail.com',
+        },
+        customizations: {
+            title: 'Run my balance'
+        },
+    }
+
+    const handleFlutterPayment = useFlutterwave(fwloyaltyConfig);
+
+    const goToPayment = () => {
+        console.log('wait')
+        handleFlutterPayment({
+            callback: async response => {
+                if (response.status === "successful") {
+                    // Implementation for whatever you want to do with reference and after success call.
+                    console.log('running')
+                    setFetchingCheckoutData(true);
+                    axiosCall.post('/products/cart/checkout', {
+                        userFormData, transId: response.trxref, deliveryDate
+                    }, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    })
+                        .then(merchandiseData => {
+                            console.log(merchandiseData)
+                            if (merchandiseData.data.statusMessage === "success") {
+                                window.location.href = "/checkout-success";
+                            } else {
+                                setFetchingCheckoutData(false);
+                                openNotificationWithIcon('error', 'An error occurred while completing transaction. Please try again..');
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            setFetchingCheckoutData(false);
+                            openNotificationWithIcon('error', 'An error occurred while completing transaction. Please try again..');
+                        })
+                }
+            },
+            onClose: () => { console.log('done') },
+        });
+    }
 
     const setUserDeliveryDetails = e => {
         let userFormData = {
@@ -215,6 +298,7 @@ const CheckOut = props => {
         }
     }
 
+
     // Paystack
     const config = {
         reference: (new Date()).getTime().toString(),
@@ -238,7 +322,6 @@ const CheckOut = props => {
             .then(merchandiseData => {
                 console.log(merchandiseData)
                 if (merchandiseData.data.statusMessage === "success") {
-                    localStorage.setItem('userorderitem', userFormData.deliveryType);
                     window.location.href = "/checkout-success";
                 } else {
                     setFetchingCheckoutData(false);
@@ -270,6 +353,10 @@ const CheckOut = props => {
             </div>
         );
     };
+
+    // const handleMerchandisePayment = () => {
+    //     initializePayment(onSuccess, onClose);
+    // }
 
     return (
         <div>
