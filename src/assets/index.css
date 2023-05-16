@@ -52,6 +52,10 @@ body, html {
     color: var(--font-color);
     font-size: 15px;
     background: #FCFBFB;
+    max-width: 1408px;
+    overflow-x: hidden;
+    margin: 0px auto;
+    display: block;
     /* background: #F5F5F5; */
 }
 

@@ -1,17 +1,22 @@
 // import "./mini.css";
 
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
 
 import { Link } from 'react-router-dom';
-import { Input } from 'antd';
+import { Input, Collapse } from 'antd';
+
+import ToreraSize from "../../assets/images/content/torera-size.jpg";
 
 import Nav from '../../utils/nav';
 import Footer from '../../utils/footer';
 
 const Contact = () => {
-    const { handleSubmit, control } = useForm({});
-    const { TextArea } = Input;
+    const { Panel } = Collapse;
+    const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
     return (
         <div>
             <Nav />
@@ -19,74 +24,105 @@ const Contact = () => {
                 <h1>Frequently asked questions</h1>
             </div>
             <div className="contact contain">
-                <div className="faq_container">
-                    <h4>Your Privacy Matters</h4>
-                    <div style={{ marginTop: '30px' }}></div>
-                    <p>
-                        This Privacy Policy describes your privacy rights regarding how and when we collect, use, store, share and
-                        protect your information across our website, APIs, applications, email notifications and tools
-                        regardless of how you use or access them.
-                        <br />
-                        Notwithstanding which country you live in, when using any of our services, you consent to the collection,
-                        transfer, storage, disclosure, and use of your information in Nigeria and any other country we operate
-                        as described in this privacy policy. This includes any information you choose to provide that is deemed
-                        sensitive under applicable law.
-                        <br /><br />
-                        We respect the privacy of our online visitors and registered users, and we will take reasonable steps to
-                        protect your information.
-                        <br /> <br />
-                        It is our policy to respect your privacy regarding any information we may collect while operating our website.
-                        <br /> <br />
-                        Accordingly, we have developed this privacy policy for you to understand how we collect, use, communicate,
-                        disclose, and otherwise make use of personal information. We have outlined our privacy policy below. What
-                        We Do to Information Collected
-                    </p>
-                    <h5>Personal Information</h5>
-                    <p>
-                        Upon registration, we collect personal information which you voluntarily provided by lawful means. We collect
-                        and use personal information solely for fulfilling the purposes specified by us and for other ancillary
-                        purposes.
-                        <br /><br />
-                        This refers to the personal information you submit when you register (e.g., email address, company name,
-                        password, bank account number, etc.) it may also include anonymous information that is linked to you, for
-                        example, your IP Address. It should be relevant to the purposes for which it is to be used, and, to the extent
-                        necessary for those purposes, should be accurate, complete, and up to date.
-                        <br /> <br />
-                        The following lists what we use your personal information for. These may be updated from time to time. To
-                        provide you with access to our service.
-                    </p>
-                    <ul>
-                        <li>To verify the information provided.</li>
-                        <li>To prevent, detect and manage any illegal and fraudulent activity.</li>
-                        <li>To improve our services to you.</li>
-                        <li>To address any inappropriate use of our services.</li>
-                        <li>To update our website layout, database, and content.</li>
-                        <li>To target advertisements, newsletter, and service updates.</li>
-                        <li>Resolve disputes that may occur.</li>
-                    </ul>
-                    <p>
-                        Additional personal information may be gotten from third party applications and other
-                        identification/verification services. For example, from your financial institution.
-                        <br /> <br />
-                        Once you begin to use our services, we keep all records of your transactions and we will not share or disclose
-                        your personal information with a third party without your consent.
-                    </p>
-                    <h5>Protecting Your Information</h5>
-                    <p>
-                        We will protect your personal information by using global security safeguards against loss or theft, as well as
-                        against any unauthorized access, risk of loss, disclosure, copying, misuse, or modification. Other security
-                        measures include but not limited to, firewall, data encryption and granting access only to employees to fulfil
-                        their job responsibilities.
-                        <br />
-                        We are committed to conducting our business in accordance with these principles to ensure that the
-                        confidentiality of personal information is protected and maintained.
-                    </p>
-                    <h5>Data Storage</h5>
-                    <p>
-                        We will only retain personal information on our servers for as long as an account is active. Once an account has
-                        been deactivated, your information is stored on our servers for as long as necessarily obligated by law. This
-                        policy may change from time to time at our sole discretion.
-                    </p>
+                <div className="faq_container faq-list">
+                    <div className="faq-box">
+                        <h5>Product and Stock</h5>
+                        <Collapse defaultActiveKey={['1']} expandIconPosition="end">
+                            <Panel header="What is the size of the TORERA table? " key="1">
+                                <p>
+                                    <img src={ToreraSize} alt="torera dimension" />
+                                </p>
+                            </Panel>
+                            <Panel header="Can I get the table in a custom size?" key="2">
+                                <p>Yes, you can. However, the price and delivery timeline would have to
+                                    change as well.</p>
+                            </Panel>
+                        </Collapse>
+                    </div>
+                    <div className="faq-box">
+                        <h5>Payment, Returns and Refunds</h5>
+                        <Collapse defaultActiveKey={['1']} expandIconPosition="end">
+                            <Panel header="How can I pay for the TORERA table?" key="1">
+                                <p>You can order the table via:
+                                    <ol>
+                                        <li>
+                                            To pay with card- kindly click the link below <br />
+                                            https://paystack.com/buy/torera-foldale-table-aybzff
+                                        </li>
+                                        <li>
+                                            Pay into our account. GT Bank 0130001071. Vo3designs <br />
+                                            Send payment confirmation to us via DM and also send delivery location so
+                                            delivery cost can be communicated.
+                                        </li>
+                                        <li>
+                                            share the following <br />
+                                            Name, Email address, Phone number
+                                        </li>
+                                    </ol>
+                                </p>
+                            </Panel>
+                            <Panel header="Can I get a refund after payment?" key="2">
+                                <p>Please refer to the ‘Returns and Refund policy’ to know if you are eligible
+                                    for a refund.</p>
+                            </Panel>
+                            <Panel header="Can I exchange this product instead of a refund?" key="3">
+                                <p>Please refer to the ‘Returns and Refund policy’ to know if you are eligible
+                                    for an exchange.</p>
+                            </Panel>
+                            <Panel header="Can I order online and pick-up in person?" key="4">
+                                <p>Yes, you can. Please specify while making your order that you would like to
+                                    pick up the item yourself, and have your order details available for
+                                    verification upon pick-up.</p>
+                            </Panel>
+                            <Panel header="Can I pay in two installments?" key="5">
+                                <p>Yes, you can. However, you would only be able to get your item upon
+                                    payment of the second installment.</p>
+                            </Panel>
+                        </Collapse>
+                    </div>
+                    <div className="faq-box">
+                        <h5>Delivery</h5>
+                        <Collapse defaultActiveKey={['1']} expandIconPosition="end">
+                            <Panel header="What is the delivery timeline?" key="1">
+                                <p>All deliveries are made between 5-8 working days within Lagos, Nigeria.</p>
+                            </Panel>
+                            <Panel header="Do you deliver the TORERA table outside of Lagos?" key="2">
+                                <p>Delivery outside Lagos is subject to the delivery location. Please contact us
+                                    at hello@vo3designs.com to find out if we can deliver our products to you
+                                    outside Lagos.</p>
+                            </Panel>
+                        </Collapse>
+                    </div>
+                    <div className="faq-box">
+                        <h5>Support</h5>
+                        <Collapse defaultActiveKey={['1']} expandIconPosition="end">
+                            <Panel header="Whom can I contact to make enquries?" key="1">
+                                <p>Please contact us via:</p>
+                                <ul>
+                                    <li>Email: hello@vo3designs.com</li>
+                                    <li>Call: +2348034652105</li>
+                                    <li>Instagram: @vo3designs</li>
+                                </ul>
+                            </Panel>
+                            <Panel header="Whom can I contact to make enquries?" key="1">
+                                <p>How do I set up the table?</p>
+                                <ul>
+                                    <li>Step 1: Unwrap the folded table.</li>
+                                    <li>Step 2: Raise the folded table such that the legs are upright.</li>
+                                    <li>Step 3: Unfold the folded legs to be at right angles to the rear legs.</li>
+                                    <li>Step 4: Flip over the table top to sit on the legs, making sure it sits within the studs.</li>
+                                    <li>Step 5: Place the cup in the hole on the table top</li>
+                                </ul>
+                            </Panel>
+                            <Panel header="What is the warranty of the TORERA table?" key="2">
+                                <p>The warranty of the TORERA table is six(6) months.</p>
+                            </Panel>
+                            <Panel header="What do I do if my order is damaged?" key="2">
+                                <p>Please refer to the ‘Returns and Refund policy’ to know what to do if this occurs.</p>
+                            </Panel>
+
+                        </Collapse>
+                    </div>
                 </div>
             </div>
             <Footer margin={true} />

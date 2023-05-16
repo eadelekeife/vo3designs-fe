@@ -63,6 +63,22 @@
     border-radius: 2px;
 }
 
+.faq_container.faq-list img {
+    width: 45%;
+    height: auto;
+}
+
+.faq_container.faq-list .faq-box {
+    margin-bottom: 40px;
+}
+
+.faq_container.faq-list ul li,
+.faq_container.faq-list ol li {
+    list-style: inside;
+    line-height: 1.8;
+    margin-top: 20px;
+}
+
 .our-story .faq_container img {
     height: 25rem;
 }

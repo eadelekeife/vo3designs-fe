@@ -62,8 +62,7 @@ const CheckOut = props => {
 
     const [deliveryStates] = useState(['ikoyi', 'vi', 'marina', 'lekki I', 'lekki II-ajah', 'yaba', 'opebi-ikeja', 'surulere-festac', 'gbagada-magodo I']);
 
-    const publicKey = "FLWPUBK_TEST-0e746e210b6a35ba308e802e22489f09-X";
-    const privateKey = "pk_test_a19a6e93c97960b1a49da3577caacd3f2194d2a7";
+    const privateKey = process.env.REACT_APP_PAYSTACK_KEY;
     const [uuidv4] = useState(uuid());
 
     const [amount, setAmount] = useState(80000); // Remember, set in kobo!

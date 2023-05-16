@@ -1,5 +1,5 @@
 .header {
-    background: linear-gradient(to top right, rgba(0, 0, 0, .3), rgba(0, 0, 0, .7)), url('../../assets/images/homepage/hero.jpg');
+    /* background: linear-gradient(to top right, rgba(0, 0, 0, .3), rgba(0, 0, 0, .7)), url('../../assets/images/homepage/hero.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -7,6 +7,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center; */
+
+    align-items: center;
+    background: linear-gradient(to top right,rgba(0,0,0,.3),rgba(0,0,0,.7)),url('../../assets/images/homepage/hero.jpg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    height: 500px;
+    justify-content: center;
     text-align: center;
 }
 
