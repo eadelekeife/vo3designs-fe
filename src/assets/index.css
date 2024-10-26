@@ -52,7 +52,7 @@ body, html {
     color: var(--font-color);
     font-size: 15px;
     background: #FCFBFB;
-    max-width: 1408px;
+    max-width: 1800px;
     overflow-x: hidden;
     margin: 0px auto;
     display: block;
